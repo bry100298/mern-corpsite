@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import plmunLogoCarousel from "../assets/plmunLogoCarousel.png";
 import citicsLogoCarousel from "../assets/citcs-logo.png";
 import cbaLogoCarousel from "../assets/CBA-logo.png";
@@ -16,11 +16,54 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 export default function SignUp() {
   useEffect(() => {
-    const interval = setInterval(() => {
-    }, 3000);
+    const interval = setInterval(() => {}, 3000);
 
     return () => clearInterval(interval);
   }, []);
+
+  const [formData, setFormData] = useState({});
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      setLoading(true);
+      // const res = await fetch("/api/auth/signup", formData);
+      const res = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+      console.log(data);
+
+      if (data.success == false) {
+        setLoading(false);
+        setError(data.message);
+        return;
+      }
+      setLoading(false);
+      setError(null);
+      navigate("/sign-in");
+    } catch (error) {
+      setLoading(false);
+      setError(error.message);
+    }
+  };
+
+  // console.log(formData);
 
   return (
     // <div className="p-3 max-w-lg mx-auto">
@@ -102,13 +145,14 @@ export default function SignUp() {
           <h1 className="text-3xl text-center font-semibold my-7 text-gray-800">
             Create an Account
           </h1>
-          <form className="flex flex-col gap-4">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <div className="relative">
               <input
                 type="text"
                 placeholder="Username"
                 className="border p-3 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                 id="username"
+                onChange={handleChange}
               />
             </div>
 
@@ -118,6 +162,7 @@ export default function SignUp() {
                 placeholder="Email"
                 className="border p-3 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                 id="email"
+                onChange={handleChange}
               />
             </div>
 
@@ -127,18 +172,24 @@ export default function SignUp() {
                 placeholder="Password"
                 className="border p-3 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                 id="password"
+                onChange={handleChange}
               />
             </div>
-            <button className="bg-blue-500 text-white p-3 rounded-lg uppercase hover:bg-blue-600 disabled:opacity-80">
-              Create Account
+            <button
+              disabled={loading}
+              className="bg-blue-500 text-white p-3 rounded-lg uppercase hover:bg-blue-600 disabled:opacity-80"
+            >
+              {loading ? "Loading..." : "Create Account"}
             </button>
           </form>
           <div className="flex justify-center items-center mt-5 text-gray-700">
             <p>Already have an account?</p>
             <Link to={"/sign-in"} className="ml-2 text-blue-500">
-              Sign in
+              {/* Sign in */}
+              <span className="text-blue-700">Sign in</span>
             </Link>
           </div>
+          {error && <p className="text-red-500 mt-5">{error}</p>}
         </div>
       </div>
     </div>
