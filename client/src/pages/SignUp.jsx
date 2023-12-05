@@ -59,8 +59,10 @@ export default function SignUp() {
     // </div>
 
     // <div className="p-3 max-w-lg mx-auto bg-white shadow-lg rounded-lg mt-5">
-    <div className="p-3 flex max-w-4xl mx-auto bg-white shadow-lg rounded-lg mt-5">
-      <div className="w-1/2 pr-4">
+    // <div className="p-3 flex max-w-4xl mx-auto bg-white shadow-lg rounded-lg mt-5">
+    <div className="p-3 flex flex-col md:flex-row max-w-4xl mx-auto bg-white shadow-lg rounded-lg mt-5">
+      {/* <div className="w-1/2 pr-4"> */}
+      <div className="w-full md:full pr-4 order-1 md:order-1">
         <Carousel showThumbs={false} infiniteLoop autoPlay>
           <div>
             <img src={plmunLogoCarousel} alt="Image 1" />
@@ -94,7 +96,8 @@ export default function SignUp() {
           </div>
         </Carousel>
       </div>
-      <div className="w-1/2 pl-4">
+      {/* <div className="w-1/2 pl-4"> */}
+      <div className="w-full md:w-full pl-4 order-2 md:order-2">
         <div className="p-3 bg-white shadow-lg rounded-lg">
           <h1 className="text-3xl text-center font-semibold my-7 text-gray-800">
             Create an Account
