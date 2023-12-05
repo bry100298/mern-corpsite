@@ -25,10 +25,11 @@ export default function Header() {
           <span className="text-yellow-//#endregion">PLMUN</span>
           <span className="text-yellow-950">Job Posting</span>
         </h1>
-        <form
+        {/* <form
           action=""
           className="bg-slate-100 p-3 rounded-lg flex items-center"
-        >
+        > */}
+        <form className="bg-slate-100 p-3 rounded-lg flex items-center">
           <input
             type="text"
             placeholder="Search..."
