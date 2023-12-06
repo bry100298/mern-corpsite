@@ -14,6 +14,8 @@ import comLogoCarousel from "../assets/com.png";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
+import OAuth from "../components/OAuth";
+
 export default function SignUp() {
   useEffect(() => {
     const interval = setInterval(() => {}, 3000);
@@ -181,6 +183,7 @@ export default function SignUp() {
             >
               {loading ? "Loading..." : "Create Account"}
             </button>
+            <OAuth />
           </form>
           <div className="flex justify-center items-center mt-5 text-gray-700">
             <p>Already have an account?</p>

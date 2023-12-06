@@ -20,7 +20,7 @@ import {
   signInSuccess,
   signInFailure,
 } from "../redux/user/userSlice";
-// import OAuth from "../components/OAuth";
+import OAuth from "../components/OAuth";
 
 export default function SignIn() {
   useEffect(() => {
@@ -152,6 +152,7 @@ export default function SignIn() {
             >
               {loading ? "Loading..." : "Login"}
             </button>
+            <OAuth />
           </form>
           <div className="flex justify-center items-center mt-5 text-gray-700">
             <p>Don&#39;t have an account?</p>
