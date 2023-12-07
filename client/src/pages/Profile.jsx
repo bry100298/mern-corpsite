@@ -177,6 +177,9 @@ export default function Profile() {
           className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
         >
           <div className="text-center mb-4">
+            <h1 className="text-2xl font-bold">Edit Profile</h1>
+          </div>
+          <div className="text-center mb-4">
             <input
               onChange={(e) => setFile(e.target.files[0])}
               type="file"
@@ -208,9 +211,6 @@ export default function Profile() {
             </p>
           </div>
 
-          <div className="text-center mb-4">
-            <h1 className="text-2xl font-bold">Edit Profile</h1>
-          </div>
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
@@ -275,7 +275,6 @@ export default function Profile() {
             <button
               disabled={loading}
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              type="button"
             >
               {loading ? "Loading..." : "Update"}
             </button>
@@ -302,6 +301,10 @@ export default function Profile() {
               Sign out
             </span>
           </div>
+          <p className="text-red-700 mt-5">{error ? error : ""}</p>
+          <p className="text-green-700 mt-5">
+            {updateSuccess ? "User is updated successfully!" : ""}
+          </p>
         </form>
       </div>
     </div>
