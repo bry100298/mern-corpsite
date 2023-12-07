@@ -287,7 +287,7 @@ export default function Profile() {
               Cancel
             </button>
           </div>
-          <div className="flex justify-between mt-5">
+          {/* <div className="flex justify-between mt-5">
             <span
               onClick={handleDeleteUser}
               className="text-red-700 cursor-pointer"
@@ -300,7 +300,7 @@ export default function Profile() {
             >
               Sign out
             </span>
-          </div>
+          </div> */}
           <p className="text-red-700 mt-5">{error ? error : ""}</p>
           <p className="text-green-700 mt-5">
             {updateSuccess ? "User is updated successfully!" : ""}

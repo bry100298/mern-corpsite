@@ -6,6 +6,12 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useEffect, useState, useRef } from "react";
 
+import {
+  deleteUserFailure,
+  deleteUserSuccess,
+  signOutUserStart,
+} from "../redux/user/userSlice";
+import { useDispatch } from "react-redux";
 export default function Header() {
   // const { currentUser } = useSelector((state) => state.user);
 
@@ -22,6 +28,7 @@ export default function Header() {
   const { currentUser } = useSelector((state) => state.user);
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -45,6 +52,21 @@ export default function Header() {
 
   const closeDropdown = () => {
     setShowDropdown(false);
+  };
+
+  const handleSignOut = async () => {
+    try {
+      dispatch(signOutUserStart());
+      const res = await fetch("/api/auth/signout");
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(deleteUserFailure(data.message));
+        return;
+      }
+      dispatch(deleteUserSuccess(data));
+    } catch (error) {
+      dispatch(deleteUserFailure(data.message));
+    }
   };
 
   return (
@@ -144,8 +166,8 @@ export default function Header() {
                     </Link>
                   </li>
                   <li className="block px-4 py-2 text-gray-800 hover:bg-blue-200">
-                    <Link to="/signout" onClick={closeDropdown}>
-                      Logout
+                    <Link to="/profile" onClick={closeDropdown}>
+                      <button onClick={handleSignOut}>Sign Out</button>
                     </Link>
                   </li>
                 </ul>
@@ -154,7 +176,9 @@ export default function Header() {
           ) : (
             <Link to="/sign-in">
               <li className="relative">
-                <span className="hidden sm:inline text-slate-700 hover:text-white hover:bg-blue-600 px-3 py-1 rounded-md transition duration-300 font-semibold">SignIn</span>
+                <span className="hidden sm:inline text-slate-700 hover:text-white hover:bg-blue-600 px-3 py-1 rounded-md transition duration-300 font-semibold">
+                  SignIn
+                </span>
               </li>
             </Link>
           )}
