@@ -53,6 +53,7 @@ export default function Profile() {
     const storage = getStorage(app);
     const fileName = new Date().getTime() + file.name;
     const storageRef = ref(storage, fileName);
+    // const storageRef = ref(storage, `avatars/${fileName}` ); //to create a folder on it
     const uploadTask = uploadBytesResumable(storageRef, file);
 
     uploadTask.on(

@@ -4,10 +4,48 @@ import { FaSearch } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 export default function Header() {
+  // const { currentUser } = useSelector((state) => state.user);
+
+  // const [showDropdown, setShowDropdown] = useState(false);
+
+  // const toggleDropdown = () => {
+  //   setShowDropdown(!showDropdown);
+  // };
+
+  // const closeDropdown = () => {
+  //   setShowDropdown(false);
+  // };
+
   const { currentUser } = useSelector((state) => state.user);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        closeDropdown();
+      }
+    };
+
+    if (showDropdown) {
+      window.addEventListener("click", handleClickOutside);
+    }
+
+    return () => {
+      window.removeEventListener("click", handleClickOutside);
+    };
+  }, [showDropdown]);
+
+  const toggleDropdown = () => {
+    setShowDropdown(!showDropdown);
+  };
+
+  const closeDropdown = () => {
+    setShowDropdown(false);
+  };
 
   return (
     // <header className="bg-slate-200 shadow-md">
@@ -69,7 +107,7 @@ export default function Header() {
               About
             </li>
           </Link>
-
+          {/* 
           <Link to="/profile">
             {currentUser ? (
               <img
@@ -82,9 +120,44 @@ export default function Header() {
             ) : (
               // <li className="sm:inline text-slate-700 hover:underline">
               // <li className=" text-slate-700 hover:underline">SignIn</li>
-              <li className="hidden sm:inline text-slate-700 hover:text-white hover:bg-blue-600 px-3 py-1 rounded-md transition duration-300 font-semibold">SignIn</li>
+              <li className="hidden sm:inline text-slate-700 hover:text-white hover:bg-blue-600 px-3 py-1 rounded-md transition duration-300 font-semibold">
+                SignIn
+              </li>
             )}
-          </Link>
+          </Link> */}
+
+          {currentUser ? (
+            <li className="relative" ref={dropdownRef}>
+              <div onClick={toggleDropdown}>
+                <img
+                  className="rounded-full h-7 w-7 object-cover cursor-pointer"
+                  src={currentUser.avatar}
+                  alt="profile"
+                  style={{ minWidth: "28px", minHeight: "28px" }}
+                />
+              </div>
+              {showDropdown && (
+                <ul className="absolute bg-white shadow-md rounded-md mt-8 py-2 w-36 right-0 z-20">
+                  <li className="block px-4 py-2 text-gray-800 hover:bg-blue-200">
+                    <Link to="/profile" onClick={closeDropdown}>
+                      Edit Profile
+                    </Link>
+                  </li>
+                  <li className="block px-4 py-2 text-gray-800 hover:bg-blue-200">
+                    <Link to="/signout" onClick={closeDropdown}>
+                      Logout
+                    </Link>
+                  </li>
+                </ul>
+              )}
+            </li>
+          ) : (
+            <Link to="/sign-in">
+              <li className="relative">
+                <span className="hidden sm:inline text-slate-700 hover:text-white hover:bg-blue-600 px-3 py-1 rounded-md transition duration-300 font-semibold">SignIn</span>
+              </li>
+            </Link>
+          )}
         </ul>
       </div>
     </header>
