@@ -3,14 +3,19 @@ import plmunlogo from "../assets/plmun-logo.png";
 import { FaSearch } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
+import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+
 export default function Header() {
+  const { currentUser } = useSelector((state) => state.user);
+
   return (
     // <header className="bg-slate-200 shadow-md">
     <header className="bg-blue-400 shadow-md">
       {/* <div className="flex justify-between items-center max-w-6xl mx-auto"> */}
       <div className="flex justify-between items-center max-w-8xl mx-auto p-3">
         <div className="flex items-center">
-          <Link to="./">
+          <Link to="/">
             <img src={plmunlogo} alt="PLMUN Logo" className="w-50 h-50 mr-2" />{" "}
           </Link>
           {/* Use the image */}
@@ -39,26 +44,35 @@ export default function Header() {
           <FaSearch className="text-slate-700" />
         </form>
         <ul className="flex gap-4">
-          <Link to="./">
+          <Link to="/">
             <li className="hidden sm:inline text-slate-700 hover:underline">
               Home
             </li>
           </Link>
 
-          <Link to="./careers">
+          <Link to="/careers">
             <li className="hidden sm:inline text-slate-700 hover:underline">
               Careers
             </li>
           </Link>
 
-          <Link to="./about">
+          <Link to="/about">
             <li className="hidden sm:inline text-slate-700 hover:underline">
               About Us
             </li>
           </Link>
 
-          <Link to="./sign-in">
-            <li className="sm:inline text-slate-700 hover:underline">SignIn</li>
+          <Link to="/profile">
+            {currentUser ? (
+              <img
+                className="rounded-full h-7 w-7 object-cover"
+                src={currentUser.avatar}
+                alt="profile"
+              />
+            ) : (
+              // <li className="sm:inline text-slate-700 hover:underline">
+              <li className=" text-slate-700 hover:underline">SignIn</li>
+            )}
           </Link>
         </ul>
       </div>
