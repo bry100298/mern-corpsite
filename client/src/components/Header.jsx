@@ -81,7 +81,8 @@ export default function Header() {
               />
             ) : (
               // <li className="sm:inline text-slate-700 hover:underline">
-              <li className=" text-slate-700 hover:underline">SignIn</li>
+              // <li className=" text-slate-700 hover:underline">SignIn</li>
+              <li className="hidden sm:inline text-slate-700 hover:text-white hover:bg-blue-600 px-3 py-1 rounded-md transition duration-300 font-semibold">SignIn</li>
             )}
           </Link>
         </ul>

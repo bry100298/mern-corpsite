@@ -22,6 +22,8 @@ import {
 } from "../redux/user/userSlice";
 import OAuth from "../components/OAuth";
 
+import "./Home.css";
+
 export default function SignIn() {
   useEffect(() => {
     const interval = setInterval(() => {}, 3000);
@@ -78,48 +80,50 @@ export default function SignIn() {
   };
 
   return (
-    <div className="p-3 flex flex-col md:flex-row max-w-4xl mx-auto bg-white shadow-lg rounded-lg mt-5">
-      <div className="w-full md:w-1/2 pr-4 order-1 md:order-1">
-        <Carousel showThumbs={false} infiniteLoop autoPlay>
-          <div>
-            <img src={plmunLogoCarousel} alt="Image 1" />
+    <div className="home-bg">
+      <div className="content">
+        <div className="p-3 flex flex-col md:flex-row max-w-4xl mx-auto bg-white shadow-lg rounded-lg mt-5">
+          <div className="w-full md:w-1/2 pr-4 order-1 md:order-1">
+            <Carousel showThumbs={false} infiniteLoop autoPlay>
+              <div>
+                <img src={plmunLogoCarousel} alt="Image 1" />
+              </div>
+              <div>
+                <img src={citicsLogoCarousel} alt="Image 2" />
+              </div>
+              <div>
+                <img src={cbaLogoCarousel} alt="Image 2" />
+              </div>
+              <div>
+                <img src={ccjLogoCarousel} alt="Image 2" />
+              </div>
+              <div>
+                <img src={cteLogoCarousel} alt="Image 2" />
+              </div>
+              <div>
+                <img src={casLogoCarousel} alt="Image 2" />
+              </div>
+              <div>
+                <img src={gsLogoCarousel} alt="Image 2" />
+              </div>
+              <div>
+                <img src={ippgLogoCarousel} alt="Image 2" />
+              </div>
+              <div>
+                <img src={coaLogoCarousel} alt="Image 2" />
+              </div>
+              <div>
+                <img src={comLogoCarousel} alt="Image 2" />
+              </div>
+            </Carousel>
           </div>
-          <div>
-            <img src={citicsLogoCarousel} alt="Image 2" />
-          </div>
-          <div>
-            <img src={cbaLogoCarousel} alt="Image 2" />
-          </div>
-          <div>
-            <img src={ccjLogoCarousel} alt="Image 2" />
-          </div>
-          <div>
-            <img src={cteLogoCarousel} alt="Image 2" />
-          </div>
-          <div>
-            <img src={casLogoCarousel} alt="Image 2" />
-          </div>
-          <div>
-            <img src={gsLogoCarousel} alt="Image 2" />
-          </div>
-          <div>
-            <img src={ippgLogoCarousel} alt="Image 2" />
-          </div>
-          <div>
-            <img src={coaLogoCarousel} alt="Image 2" />
-          </div>
-          <div>
-            <img src={comLogoCarousel} alt="Image 2" />
-          </div>
-        </Carousel>
-      </div>
-      <div className="w-full md:w-1/2 pl-4 order-2 md:order-2">
-        <div className="p-3 bg-white shadow-lg rounded-lg">
-          <h1 className="text-3xl text-center font-semibold my-7 text-gray-800">
-            Sign In
-          </h1>
-          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-            {/* <div className="relative">
+          <div className="w-full md:w-1/2 pl-4 order-2 md:order-2">
+            <div className="p-3 bg-white shadow-lg rounded-lg">
+              <h1 className="text-3xl text-center font-semibold my-7 text-gray-800">
+                Sign In
+              </h1>
+              <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+                {/* <div className="relative">
               <input
                 type="text"
                 placeholder="Username"
@@ -128,39 +132,41 @@ export default function SignIn() {
                 onChange={handleChange}
               />
             </div> */}
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="Email"
-                className="border p-3 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
-                id="email"
-                onChange={handleChange}
-              />
+                <div className="relative">
+                  <input
+                    type="text"
+                    placeholder="Email"
+                    className="border p-3 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    id="email"
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="relative">
+                  <input
+                    type="password"
+                    placeholder="Password"
+                    className="border p-3 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    id="password"
+                    onChange={handleChange}
+                  />
+                </div>
+                <button
+                  disabled={loading}
+                  className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:bg-blue-600 disabled:opacity-80"
+                >
+                  {loading ? "Loading..." : "Login"}
+                </button>
+                <OAuth />
+              </form>
+              <div className="flex justify-center items-center mt-5 text-gray-700">
+                <p>Don&#39;t have an account?</p>
+                <Link to={"/sign-up"} className="ml-2 text-blue-500">
+                  <span className="text-blue-700">Sign Up</span>
+                </Link>
+              </div>
+              {error && <p className="text-red-500 mt-5">{error}</p>}
             </div>
-            <div className="relative">
-              <input
-                type="password"
-                placeholder="Password"
-                className="border p-3 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
-                id="password"
-                onChange={handleChange}
-              />
-            </div>
-            <button
-              disabled={loading}
-              className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:bg-blue-600 disabled:opacity-80"
-            >
-              {loading ? "Loading..." : "Login"}
-            </button>
-            <OAuth />
-          </form>
-          <div className="flex justify-center items-center mt-5 text-gray-700">
-            <p>Don&#39;t have an account?</p>
-            <Link to={"/sign-up"} className="ml-2 text-blue-500">
-              <span className="text-blue-700">Sign Up</span>
-            </Link>
           </div>
-          {error && <p className="text-red-500 mt-5">{error}</p>}
         </div>
       </div>
     </div>
