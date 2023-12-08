@@ -4,7 +4,9 @@ export default function CreateJob() {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="bg-white shadow-md rounded-lg px-8 py-6 mb-8">
-        <h1 className="text-3xl font-bold mb-4 text-center">Post a job on JobBoard</h1>
+        <h1 className="text-3xl font-bold mb-4 text-center">
+          Post a job on JobBoard
+        </h1>
         {/* <p className="text-lg mb-6">
           Find the best talent from around the world on the most exclusive job
           board on the internet.
@@ -48,12 +50,33 @@ export default function CreateJob() {
             >
               Company Logo (optional)
             </label>
-            <div className="flex items-center justify-between border border-gray-300 rounded-md py-2 px-3">
-              <label htmlFor="upload" className="cursor-pointer text-blue-500">
+            {/* <div className="flex items-center justify-between border border-gray-300 rounded-md py-2 px-3">
+              <label htmlFor="images" className="cursor-pointer text-blue-500">
                 Upload
-                <input type="file" id="upload" className="hidden" />
+                <input
+                  type="file"
+                  id="images"
+                  accept="image/*"
+                  // multiple
+                  // className="hidden"
+                />
               </label>
               <span className="text-gray-500">No file chosen</span>
+            </div> */}
+            <div className="flex gap-4">
+              <input
+                className="p-3 border border-gray-300 rounded w-full"
+                type="file"
+                id="images"
+                accept="image/*"
+                multiple
+              />
+              <button
+                type="button"
+                className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              >
+                Upload
+              </button>
             </div>
           </div>
 
