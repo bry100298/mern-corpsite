@@ -20,7 +20,7 @@ export default function CreateJob() {
     cemail: "company@gmail.com",
     pname: "Senior Software Engineer",
     role: "Programmer",
-    commitment: "Full-time",
+    committment: "Full-time",
     jdesc: "Programming",
     salary: "40000",
     // userRef: "",
@@ -120,12 +120,12 @@ export default function CreateJob() {
     // setSelectedOption(e);
     // setShowOptions(false);
 
-    // if (e.target.tagName.toLowerCase() === "select") {
-    //   setFormData({
-    //     ...formData,
-    //     [e.target.id]: e.target.value,
-    //   });
-    // }
+    if (e.target.tagName.toLowerCase() === "select") {
+      setFormData({
+        ...formData,
+        [e.target.id]: e.target.value,
+      });
+    }
 
     if (
       e.target.type === "number" ||
@@ -319,7 +319,7 @@ export default function CreateJob() {
             ></textarea>
           </div>
 
-          <div className="mb-4">
+          {/* <div className="mb-4">
             <label
               htmlFor="commitment"
               className="block text-gray-700 font-semibold mb-2"
@@ -328,25 +328,25 @@ export default function CreateJob() {
             </label>
             <input
               onChange={handleChange}
-              value={formData.commitment}
-              id="commitment"
+              value={formData.committment}
+              id="committment"
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
               placeholder="Programming, Design, etc."
               required
             ></input>
-          </div>
+          </div> */}
 
-          {/* <div className="mb-4 custom-select">
+          <div className="mb-4 custom-select">
             <label
-              htmlFor="commitment"
+              htmlFor="committment"
               className="block text-gray-700 font-semibold mb-2"
             >
               Commitment *
             </label>
             <select
               onChange={handleChange}
-              value={formData.commitment}
-              id="commitment"
+              value={formData.committment}
+              id="committment"
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
               required
             >
@@ -355,7 +355,7 @@ export default function CreateJob() {
               <option value="partTime">Part-time</option>
               <option value="contract">Contract</option>
             </select>
-          </div> */}
+          </div>
 
           {/* <div className="mb-4 relative">
             <label
