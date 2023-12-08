@@ -16,15 +16,20 @@ export default function CreateJob() {
   const [files, setFiles] = useState([]);
   const [formData, setFormData] = useState({
     clogo: [],
-    cname: "",
-    cemail: "",
-    pname: "",
-    role: "",
-    commitment: "",
-    jdesc: "",
-    salary: "",
-    userRef: "",
+    cname: "Company A",
+    cemail: "company@gmail.com",
+    pname: "Senior Software Engineer",
+    role: "Programmer",
+    commitment: "Full-time",
+    jdesc: "Programming",
+    salary: "40000",
+    // userRef: "",
   });
+
+  // const [showOptions, setShowOptions] = useState(false);
+  // const [selectedOption, setSelectedOption] = useState("");
+  // const options = ["Full-time", "Part-time", "Contract"];
+
   const [imageUploadError, setImageUploadError] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState(false);
@@ -93,28 +98,40 @@ export default function CreateJob() {
   };
 
   const handleChange = (e) => {
-    if (e.target.id === "sale" || e.target.id === "rent") {
-      setFormData({
-        ...formData,
-        type: e.target.id,
-      });
-    }
+    // #dito nalang sa check box, kung hybrid, remote, onsite
+    // if (e.target.id === "sale" || e.target.id === "rent") {
+    //   setFormData({
+    //     ...formData,
+    //     type: e.target.id,
+    //   });
+    // }
 
-    if (
-      e.target.id === "parking" ||
-      e.target.id === "furnished" ||
-      e.target.id === "offer"
-    ) {
-      setFormData({
-        ...formData,
-        [e.target.id]: e.target.checked,
-      });
-    }
+    // if (
+    //   e.target.id === "parking" ||
+    //   e.target.id === "furnished" ||
+    //   e.target.id === "offer"
+    // ) {
+    //   setFormData({
+    //     ...formData,
+    //     [e.target.id]: e.target.checked,
+    //   });
+    // }
+
+    // setSelectedOption(e);
+    // setShowOptions(false);
+
+    // if (e.target.tagName.toLowerCase() === "select") {
+    //   setFormData({
+    //     ...formData,
+    //     [e.target.id]: e.target.value,
+    //   });
+    // }
 
     if (
       e.target.type === "number" ||
       e.target.type === "text" ||
-      e.target.type === "textarea"
+      e.target.type === "textarea" ||
+      e.target.type === "email"
     ) {
       setFormData({
         ...formData,
@@ -128,8 +145,8 @@ export default function CreateJob() {
     try {
       if (formData.clogo.length < 1)
         return setError("You must upload at least one image");
-      if (+formData.regularPrice < +formData.discountPrice)
-        return setError("Discount price must be lower than regular price");
+      // if (+formData.regularPrice < +formData.discountPrice)
+      //   return setError("Discount price must be lower than regular price");
       setLoading(true);
       setError(false);
       const res = await fetch("/api/listing/create", {
@@ -163,18 +180,24 @@ export default function CreateJob() {
           Find the best talent from around the world on the most exclusive job
           board on the internet.
         </p> */}
-        <form className="max-w-md mx-auto bg-white shadow-md rounded-lg px-8 py-6 mb-8">
+        <form
+          onSubmit={handleSubmit}
+          className="max-w-md mx-auto bg-white shadow-md rounded-lg px-8 py-6 mb-8"
+        >
           <h2 className="text-2xl font-bold mb-4">1. Your company</h2>
           <div className="mb-4">
             <label
-              htmlFor="companyName"
+              htmlFor="cname"
               className="block text-gray-700 font-semibold mb-2"
             >
               Company Name *
             </label>
             <input
+              // onChange={handleChange}
+              onChange={handleChange}
+              value={formData.cname}
               type="text"
-              id="companyName"
+              id="cname"
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
               placeholder="E.g., Acme Inc."
               required
@@ -182,14 +205,16 @@ export default function CreateJob() {
           </div>
           <div className="mb-4">
             <label
-              htmlFor="contactEmail"
+              htmlFor="cemail"
               className="block text-gray-700 font-semibold mb-2"
             >
               Contact Email *
             </label>
             <input
+              onChange={handleChange}
+              value={formData.cemail}
               type="email"
-              id="contactEmail"
+              id="cemail"
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
               placeholder="E.g., example@acme.com"
               required
@@ -226,10 +251,11 @@ export default function CreateJob() {
               />
               <button
                 type="button"
+                disabled={uploading}
                 onClick={handleImageSubmit}
                 className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               >
-                Upload
+                {uploading ? "Uploading..." : "Upload"}
               </button>
             </div>
 
@@ -261,14 +287,16 @@ export default function CreateJob() {
           <h2 className="text-2xl font-bold mb-4">2. The role</h2>
           <div className="mb-4">
             <label
-              htmlFor="positionName"
+              htmlFor="pname"
               className="block text-gray-700 font-semibold mb-2"
             >
               Position Name *
             </label>
             <input
+              onChange={handleChange}
+              value={formData.pname}
               type="text"
-              id="positionName"
+              id="pname"
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
               placeholder="E.g., Senior Software Engineer"
               required
@@ -282,12 +310,15 @@ export default function CreateJob() {
               Role *
             </label>
             <textarea
+              onChange={handleChange}
+              value={formData.role}
               id="role"
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
               placeholder="Programming, Design, etc."
               required
             ></textarea>
           </div>
+
           <div className="mb-4">
             <label
               htmlFor="commitment"
@@ -295,25 +326,82 @@ export default function CreateJob() {
             >
               Commitment *
             </label>
+            <input
+              onChange={handleChange}
+              value={formData.commitment}
+              id="commitment"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+              placeholder="Programming, Design, etc."
+              required
+            ></input>
+          </div>
+
+          {/* <div className="mb-4 custom-select">
+            <label
+              htmlFor="commitment"
+              className="block text-gray-700 font-semibold mb-2"
+            >
+              Commitment *
+            </label>
             <select
+              onChange={handleChange}
+              value={formData.commitment}
               id="commitment"
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
               required
             >
+              <option value="">Select commitment</option>
               <option value="fullTime">Full-time</option>
               <option value="partTime">Part-time</option>
               <option value="contract">Contract</option>
             </select>
-          </div>
+          </div> */}
+
+          {/* <div className="mb-4 relative">
+            <label
+              htmlFor="commitment"
+              className="block text-gray-700 font-semibold mb-2"
+            >
+              Commitment *
+            </label>
+
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="Select commitment"
+                value={selectedOption}
+                onFocus={() => setShowOptions(true)}
+                readOnly
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+              />
+
+              {showOptions && (
+                <ul className="absolute top-full left-0 z-10 bg-white border border-gray-300 rounded-md w-full max-h-48 overflow-y-auto">
+                  {options.map((option) => (
+                    <li
+                      key={option}
+                      onClick={() => handleChange(option)}
+                      className="px-3 py-2 cursor-pointer hover:bg-gray-100"
+                    >
+                      {option}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </div> */}
           <div className="mb-4">
             <label
-              htmlFor="jobDescription"
+              htmlFor="jdesc"
               className="block text-gray-700 font-semibold mb-2"
             >
               Job Description *
             </label>
             <textarea
-              id="jobDescription"
+              type="text"
+              onChange={handleChange}
+              value={formData.jdesc}
+              id="jdesc"
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
               placeholder="Describe the job..."
               required
@@ -327,6 +415,8 @@ export default function CreateJob() {
               Salary (optional)
             </label>
             <input
+              onChange={handleChange}
+              value={formData.salary}
               type="text"
               id="salary"
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
@@ -335,11 +425,13 @@ export default function CreateJob() {
           </div>
 
           <button
-            type="submit"
+            // type="submit"
+            disabled={loading || uploading}
             className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           >
-            Submit
+            {loading ? "Submitting..." : "Submit"}
           </button>
+          {error && <p className="text-red-700 text-sm">{error}</p>}
         </form>
       </div>
     </div>
