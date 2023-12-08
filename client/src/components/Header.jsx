@@ -1,6 +1,6 @@
 import React from "react";
 import plmunlogo from "../assets/plmun-logo.png";
-import { FaSearch } from "react-icons/fa";
+import { FaSearch, FaEnvelope, FaPhone } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 import { useSelector } from "react-redux";
@@ -72,6 +72,42 @@ export default function Header() {
   return (
     // <header className="bg-slate-200 shadow-md">
     <header className="bg-blue-400 shadow-md">
+      <div className="bg-blue-800 flex justify-between items-center max-w-8xl mx-auto p-3 h-8">
+        <form className="relative w-full max-w-md">
+          <input
+            type="text"
+            placeholder="Search..."
+            className="bg-white border-2 border-gray-300 focus:outline-none focus:border-blue-500 rounded-full py-1 px-3 w-full h-7"
+          />
+          <button type="submit" className="absolute right-0 top-0 mt-2 mr-3">
+            <FaSearch className="text-gray-600" />
+          </button>
+        </form>
+
+        <ul className="flex items-center space-x-4 text-white">
+          {/* <li className="hidden sm:block">
+            <a href="#" className="text-warning">
+              Contact 1
+            </a>
+          </li> */}
+          <li className="hidden sm:flex items-center">
+            <a href="#" className="text-warning flex items-center">
+              <FaEnvelope className="mr-1" />
+              <span className="bg-yellow-400 p-1 rounded-lg">
+                plmuncomm@plmun.edu.ph
+              </span>
+            </a>
+          </li>
+          <li className="hidden sm:flex items-center">
+            <a href="#" className="text-warning flex items-center">
+              <FaPhone className="mr-1" />
+              <span className="bg-yellow-400 p-1 rounded-lg">
+                02-88933368 loc 250
+              </span>
+            </a>
+          </li>
+        </ul>
+      </div>
       {/* <div className="flex justify-between items-center max-w-6xl mx-auto"> */}
       <div className="flex justify-between items-center max-w-8xl mx-auto p-3">
         <div className="flex items-center">
@@ -83,15 +119,7 @@ export default function Header() {
               className="h-14 max-w-[200px] w-auto mr-2"
             />{" "}
           </Link>
-          <form className="bg-slate-100 p-3 rounded-lg flex items-center">
-            <input
-              type="text"
-              placeholder="Search..."
-              className="bg-transparent focus:outline-none w-24 sm:w-64 md:w-96"
-            />
-            {/* <FaSearch className="text-slate-500" /> */}
-            <FaSearch className="text-slate-700" />
-          </form>
+
           {/* Use the image */}
           {/* <h1 className="font-bold text-sm sm:text-xl flex flex-wrap">
             <span className="text-slate-500">PLMUN</span>
@@ -166,8 +194,13 @@ export default function Header() {
                     </Link>
                   </li>
                   <li className="block px-4 py-2 text-gray-800 hover:bg-blue-200">
+                    <Link to="/create-job" onClick={closeDropdown}>
+                      Create Job
+                    </Link>
+                  </li>
+                  <li className="block px-4 py-2 text-gray-800 hover:bg-blue-200">
                     <Link to="/profile" onClick={closeDropdown}>
-                      <button onClick={handleSignOut}>Sign Out</button>
+                      <button onClick={handleSignOut}>Logout</button>
                     </Link>
                   </li>
                 </ul>
@@ -177,7 +210,7 @@ export default function Header() {
             <Link to="/sign-in">
               <li className="relative">
                 <span className="hidden sm:inline text-slate-700 hover:text-white hover:bg-blue-600 px-3 py-1 rounded-md transition duration-300 font-semibold">
-                  SignIn
+                  Login
                 </span>
               </li>
             </Link>

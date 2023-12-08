@@ -6,6 +6,7 @@ import SignUp from "./pages/SignUp";
 import About from "./pages/About";
 import Profile from "./pages/Profile";
 import Careers from "./pages/Careers";
+import CreateJob from "./pages/CreateJob";
 
 import Header from "./components/Header";
 
@@ -22,6 +23,7 @@ export default function App() {
         <Route path="/about" element={<About />} />
         {/* <Route path="/profile" element={<Profile />} /> */}
         <Route path="/careers" element={<Careers />} />
+        <Route path="/create-job" element={<CreateJob />} />
 
         <Route element={<PrivateRoute />}>
           <Route path="/profile" element={<Profile />} />
