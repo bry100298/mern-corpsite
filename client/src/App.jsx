@@ -11,6 +11,7 @@ import CreateJob from "./pages/CreateJob";
 import Header from "./components/Header";
 
 import PrivateRoute from "./components/PrivateRoute";
+import Admin from "./pages/Admin";
 
 export default function App() {
   return (
@@ -23,10 +24,11 @@ export default function App() {
         <Route path="/about" element={<About />} />
         {/* <Route path="/profile" element={<Profile />} /> */}
         <Route path="/careers" element={<Careers />} />
-        <Route path="/create-job" element={<CreateJob />} />
 
         <Route element={<PrivateRoute />}>
           <Route path="/profile" element={<Profile />} />
+          <Route path="/create-job" element={<CreateJob />} />
+          <Route path="/admin" element={<Admin />} />
         </Route>
       </Routes>
     </BrowserRouter>
