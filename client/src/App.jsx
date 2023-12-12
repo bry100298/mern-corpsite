@@ -12,6 +12,7 @@ import Header from "./components/Header";
 
 import PrivateRoute from "./components/PrivateRoute";
 import Admin from "./pages/Admin";
+import UserList from "./pages/UserList";
 
 export default function App() {
   return (
@@ -28,6 +29,7 @@ export default function App() {
         <Route element={<PrivateRoute />}>
           <Route path="/profile" element={<Profile />} />
           <Route path="/create-job" element={<CreateJob />} />
+          <Route path="/job-list" element={<UserList />} />
           <Route path="/admin" element={<Admin />} />
         </Route>
       </Routes>

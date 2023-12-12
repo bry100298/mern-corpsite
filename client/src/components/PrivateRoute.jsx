@@ -21,7 +21,7 @@ const PrivateRoute = () => {
   const isAdmin = currentUser?.email === "jamestin100298@gmail.com";
 
   // Define routes accessible to everyone (non-admin)
-  const accessibleRoutes = ["/profile", "/create-job"];
+  const accessibleRoutes = ["/profile", "/create-job", "/user-list"];
 
   if (!isLoggedIn) {
     // Redirect unauthenticated users to sign-in

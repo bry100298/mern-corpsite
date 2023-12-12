@@ -172,8 +172,8 @@ export default function Admin() {
     itemsPerPage,
     showUsersDashboard,
     showJobDashboard,
-    initialUsers,
-    initialJobs,
+    // initialUsers,
+    // initialJobs,
   ]);
 
   const totalUsersPages = Math.ceil(initialUsers.length / itemsPerPage);

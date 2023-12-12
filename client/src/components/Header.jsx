@@ -209,6 +209,11 @@ export default function Header() {
                     </Link>
                   </li>
                   <li className="block px-4 py-2 text-gray-800 hover:bg-blue-200">
+                    <Link to="/job-list" onClick={closeDropdown}>
+                      My List
+                    </Link>
+                  </li>
+                  <li className="block px-4 py-2 text-gray-800 hover:bg-blue-200">
                     <Link to="/profile" onClick={closeDropdown}>
                       <button onClick={handleSignOut}>Logout</button>
                     </Link>
