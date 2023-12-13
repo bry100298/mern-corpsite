@@ -203,9 +203,11 @@ export default function Header() {
               <li>
                 <a href="/about">About</a>
               </li>
+              {!currentUser && (
               <li>
                 <a href="/sign-in">Login</a>
               </li>
+              )}
             </ul>
           </Modal>
         )}
