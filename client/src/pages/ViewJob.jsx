@@ -65,7 +65,6 @@ export default function ViewJob() {
 
   return (
     <div className="bg-gray-100 py-12">
-
       {loading && <p className="text-center my-7 text-2xl">Loading...</p>}
       {error && (
         <p className="text-center my-7 text-2xl">Something went wrong!</p>
@@ -74,7 +73,9 @@ export default function ViewJob() {
         <div className="container mx-auto px-4 py-8">
           <div className="bg-blue-600 rounded-md p-4 mb-4 flex items-center justify-between">
             {/* <h1 className="text-2xl font-bold text-white">{job.jobTitle}</h1> */}
-            <h1 className="text-2xl font-bold text-white">{listing.pname} (Permanent Work from Home)</h1>
+            <h1 className="text-2xl font-bold text-white">
+              {listing.pname} ({listing.workoptions} Setup)
+            </h1>
             <button className="bg-white text-blue-600 px-4 py-2 rounded-md font-medium hover:bg-gray-100">
               Apply now
             </button>
@@ -108,6 +109,10 @@ export default function ViewJob() {
               <h2 className="text-lg font-bold text-gray-800 mb-2">
                 Job details
               </h2>
+              <p className="text-sm text-gray-800 mb-4">
+                {/* As a Project Manager - Web Design, you'll: */}
+                {listing.jdesc}
+              </p>
               <p className="text-sm text-gray-800 mb-4">
                 {/* As a Project Manager - Web Design, you'll: */}
                 {listing.biodescr}
@@ -146,7 +151,9 @@ export default function ViewJob() {
             </div>
             <div className="flex items-center space-x-2">
               <FaMapMarkerAlt className="text-gray-600" />
-              <span className="text-sm text-gray-600">{job.location}</span>
+              <span className="text-sm text-gray-600">
+                {listing.workoptions}
+              </span>
             </div>
             <div className="flex items-center space-x-2">
               <FaClock className="text-gray-600" />
@@ -158,18 +165,18 @@ export default function ViewJob() {
           </div>
         </div>
       )}
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
     </div>
   );
 }

@@ -38,6 +38,10 @@ const listingSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    workoptions: {
+      type: String,
+      required: true,
+    },
     userRef: {
       type: String,
       required: true,

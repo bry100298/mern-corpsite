@@ -23,7 +23,9 @@ export default function CreateJob() {
     committment: "Full-time",
     jdesc: "Programming",
     salary: "40000",
-    biodescr: "We are looking for a talented Senior Software Engineer to join our team. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed feugiat, diam nec ultrices vestibulum.",
+    workoptions: "Remote",
+    biodescr:
+      "We are looking for a talented Senior Software Engineer to join our team. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed feugiat, diam nec ultrices vestibulum.",
     // userRef: "",
   });
 
@@ -172,63 +174,65 @@ export default function CreateJob() {
     }
   };
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="bg-white shadow-md rounded-lg px-8 py-6 mb-8">
-        <h1 className="text-3xl font-bold mb-4 text-center">
-          Post a job on JobBoard
-        </h1>
-        {/* <p className="text-lg mb-6">
+    <>
+      <div className=" bg-gray-100">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="bg-white shadow-md rounded-lg px-8 py-6 mb-8">
+            <h1 className="text-3xl font-bold mb-4 text-center">
+              Post a job on JobBoard
+            </h1>
+            {/* <p className="text-lg mb-6">
           Find the best talent from around the world on the most exclusive job
           board on the internet.
         </p> */}
-        <form
-          onSubmit={handleSubmit}
-          className="max-w-md mx-auto bg-white shadow-md rounded-lg px-8 py-6 mb-8"
-        >
-          <h2 className="text-2xl font-bold mb-4">1. Your company</h2>
-          <div className="mb-4">
-            <label
-              htmlFor="cname"
-              className="block text-gray-700 font-semibold mb-2"
+            <form
+              onSubmit={handleSubmit}
+              className="max-w-md mx-auto bg-white shadow-md rounded-lg px-8 py-6 mb-8"
             >
-              Company Name *
-            </label>
-            <input
-              // onChange={handleChange}
-              onChange={handleChange}
-              value={formData.cname}
-              type="text"
-              id="cname"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-              placeholder="E.g., Acme Inc."
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label
-              htmlFor="cemail"
-              className="block text-gray-700 font-semibold mb-2"
-            >
-              Contact Email *
-            </label>
-            <input
-              onChange={handleChange}
-              value={formData.cemail}
-              type="email"
-              id="cemail"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-              placeholder="E.g., example@acme.com"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label
-              htmlFor="companyLogo"
-              className="block text-gray-700 font-semibold mb-2"
-            >
-              Company Logo (optional)
-            </label>
-            {/* <div className="flex items-center justify-between border border-gray-300 rounded-md py-2 px-3">
+              <h2 className="text-2xl font-bold mb-4">1. Your company</h2>
+              <div className="mb-4">
+                <label
+                  htmlFor="cname"
+                  className="block text-gray-700 font-semibold mb-2"
+                >
+                  Company Name *
+                </label>
+                <input
+                  // onChange={handleChange}
+                  onChange={handleChange}
+                  value={formData.cname}
+                  type="text"
+                  id="cname"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                  placeholder="E.g., Acme Inc."
+                  required
+                />
+              </div>
+              <div className="mb-4">
+                <label
+                  htmlFor="cemail"
+                  className="block text-gray-700 font-semibold mb-2"
+                >
+                  Contact Email *
+                </label>
+                <input
+                  onChange={handleChange}
+                  value={formData.cemail}
+                  type="email"
+                  id="cemail"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                  placeholder="E.g., example@acme.com"
+                  required
+                />
+              </div>
+              <div className="mb-4">
+                <label
+                  htmlFor="companyLogo"
+                  className="block text-gray-700 font-semibold mb-2"
+                >
+                  Company Logo (optional)
+                </label>
+                {/* <div className="flex items-center justify-between border border-gray-300 rounded-md py-2 px-3">
               <label htmlFor="images" className="cursor-pointer text-blue-500">
                 Upload
                 <input
@@ -241,86 +245,86 @@ export default function CreateJob() {
               </label>
               <span className="text-gray-500">No file chosen</span>
             </div> */}
-            <div className="flex gap-4">
-              <input
-                onChange={(e) => setFiles(e.target.files)}
-                className="p-3 border border-gray-300 rounded w-full"
-                type="file"
-                id="images"
-                accept="image/*"
-                multiple
-              />
-              <button
-                type="button"
-                disabled={uploading}
-                onClick={handleImageSubmit}
-                className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              >
-                {uploading ? "Uploading..." : "Upload"}
-              </button>
-            </div>
-
-            <p className="text-red-700 text-sm">
-              {imageUploadError && imageUploadError}
-            </p>
-            {formData.clogo.length > 0 &&
-              formData.clogo.map((url, index) => (
-                <div
-                  key={url}
-                  className="flex justify-between p-3 border items-center"
-                >
-                  <img
-                    src={url}
-                    alt="listing image"
-                    className="w-20 h-20 object-contain rounded-lg"
+                <div className="flex gap-4">
+                  <input
+                    onChange={(e) => setFiles(e.target.files)}
+                    className="p-3 border border-gray-300 rounded w-full"
+                    type="file"
+                    id="images"
+                    accept="image/*"
+                    multiple
                   />
                   <button
                     type="button"
-                    onClick={() => handleRemoveImage(index)}
-                    className="p-3 text-red-700 rounded-lg uppercase hover:opacity-75"
+                    disabled={uploading}
+                    onClick={handleImageSubmit}
+                    className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                   >
-                    Delete
+                    {uploading ? "Uploading..." : "Upload"}
                   </button>
                 </div>
-              ))}
-          </div>
 
-          <h2 className="text-2xl font-bold mb-4">2. The role</h2>
-          <div className="mb-4">
-            <label
-              htmlFor="pname"
-              className="block text-gray-700 font-semibold mb-2"
-            >
-              Position Name *
-            </label>
-            <input
-              onChange={handleChange}
-              value={formData.pname}
-              type="text"
-              id="pname"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-              placeholder="E.g., Senior Software Engineer"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label
-              htmlFor="role"
-              className="block text-gray-700 font-semibold mb-2"
-            >
-              Role *
-            </label>
-            <textarea
-              onChange={handleChange}
-              value={formData.role}
-              id="role"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-              placeholder="Programming, Design, etc."
-              required
-            ></textarea>
-          </div>
+                <p className="text-red-700 text-sm">
+                  {imageUploadError && imageUploadError}
+                </p>
+                {formData.clogo.length > 0 &&
+                  formData.clogo.map((url, index) => (
+                    <div
+                      key={url}
+                      className="flex justify-between p-3 border items-center"
+                    >
+                      <img
+                        src={url}
+                        alt="listing image"
+                        className="w-20 h-20 object-contain rounded-lg"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveImage(index)}
+                        className="p-3 text-red-700 rounded-lg uppercase hover:opacity-75"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  ))}
+              </div>
 
-          {/* <div className="mb-4">
+              <h2 className="text-2xl font-bold mb-4">2. The role</h2>
+              <div className="mb-4">
+                <label
+                  htmlFor="pname"
+                  className="block text-gray-700 font-semibold mb-2"
+                >
+                  Position Name *
+                </label>
+                <input
+                  onChange={handleChange}
+                  value={formData.pname}
+                  type="text"
+                  id="pname"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                  placeholder="E.g., Senior Software Engineer"
+                  required
+                />
+              </div>
+              <div className="mb-4">
+                <label
+                  htmlFor="role"
+                  className="block text-gray-700 font-semibold mb-2"
+                >
+                  Role *
+                </label>
+                <textarea
+                  onChange={handleChange}
+                  value={formData.role}
+                  id="role"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                  placeholder="Programming, Design, etc."
+                  required
+                ></textarea>
+              </div>
+
+              {/* <div className="mb-4">
             <label
               htmlFor="commitment"
               className="block text-gray-700 font-semibold mb-2"
@@ -337,28 +341,28 @@ export default function CreateJob() {
             ></input>
           </div> */}
 
-          <div className="mb-4 custom-select">
-            <label
-              htmlFor="committment"
-              className="block text-gray-700 font-semibold mb-2"
-            >
-              Commitment *
-            </label>
-            <select
-              onChange={handleChange}
-              value={formData.committment}
-              id="committment"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-              required
-            >
-              <option value="">Select commitment</option>
-              <option value="Full-time">Full-time</option>
-              <option value="Part-time">Part-time</option>
-              <option value="Contract">Contract</option>
-            </select>
-          </div>
+              <div className="mb-4 custom-select">
+                <label
+                  htmlFor="committment"
+                  className="block text-gray-700 font-semibold mb-2"
+                >
+                  Commitment *
+                </label>
+                <select
+                  onChange={handleChange}
+                  value={formData.committment}
+                  id="committment"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                  required
+                >
+                  <option value="">Select commitment</option>
+                  <option value="Full-time">Full-time</option>
+                  <option value="Part-time">Part-time</option>
+                  <option value="Contract">Contract</option>
+                </select>
+              </div>
 
-          {/* <div className="mb-4 relative">
+              {/* <div className="mb-4 relative">
             <label
               htmlFor="commitment"
               className="block text-gray-700 font-semibold mb-2"
@@ -391,67 +395,89 @@ export default function CreateJob() {
               )}
             </div>
           </div> */}
-          <div className="mb-4">
-            <label
-              htmlFor="jdesc"
-              className="block text-gray-700 font-semibold mb-2"
-            >
-              Job Description *
-            </label>
-            <textarea
-              type="text"
-              onChange={handleChange}
-              value={formData.jdesc}
-              id="jdesc"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-              placeholder="Describe the job..."
-              required
-            ></textarea>
-          </div>
-          <div className="mb-4">
-            <label
-              htmlFor="biodescr"
-              className="block text-gray-700 font-semibold mb-2"
-            >
-              Bio Description*
-            </label>
-            <textarea
-              type="text"
-              onChange={handleChange}
-              value={formData.biodescr}
-              id="biodescr"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-              placeholder="Describe the job..."
-              required
-            ></textarea>
-          </div>
-          <div className="mb-4">
-            <label
-              htmlFor="salary"
-              className="block text-gray-700 font-semibold mb-2"
-            >
-              Salary (optional)
-            </label>
-            <input
-              onChange={handleChange}
-              value={formData.salary}
-              type="text"
-              id="salary"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-              placeholder="Example: “$100,000 - $170,000 USD”"
-            />
-          </div>
+              <div className="mb-4">
+                <label
+                  htmlFor="jdesc"
+                  className="block text-gray-700 font-semibold mb-2"
+                >
+                  Job Description *
+                </label>
+                <textarea
+                  type="text"
+                  onChange={handleChange}
+                  value={formData.jdesc}
+                  id="jdesc"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                  placeholder="Describe the job..."
+                  required
+                ></textarea>
+              </div>
+              <div className="mb-4">
+                <label
+                  htmlFor="biodescr"
+                  className="block text-gray-700 font-semibold mb-2"
+                >
+                  Bio Description*
+                </label>
+                <textarea
+                  type="text"
+                  onChange={handleChange}
+                  value={formData.biodescr}
+                  id="biodescr"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                  placeholder="Describe the job..."
+                  required
+                ></textarea>
+              </div>
+              <div className="mb-4 custom-select">
+                <label
+                  htmlFor="workoptions"
+                  className="block text-gray-700 font-semibold mb-2"
+                >
+                  Location type *
+                </label>
+                <select
+                  onChange={handleChange}
+                  value={formData.workoptions}
+                  id="workoptions"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                  required
+                >
+                  <option value="">Select commitment</option>
+                  <option value="Onsite">Onsite</option>
+                  <option value="Hybrid">Hybrid</option>
+                  <option value="Remote">Remote</option>
+                </select>
+              </div>
+              <div className="mb-4">
+                <label
+                  htmlFor="salary"
+                  className="block text-gray-700 font-semibold mb-2"
+                >
+                  Salary (optional)
+                </label>
+                <input
+                  onChange={handleChange}
+                  value={formData.salary}
+                  type="text"
+                  id="salary"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                  placeholder="Example: “$100,000 - $170,000 USD”"
+                />
+              </div>
 
-          <button
-            // type="submit"
-            disabled={loading || uploading}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-          >
-            {loading ? "Submitting..." : "Submit"}
-          </button>
-          {error && <p className="text-red-700 text-sm">{error}</p>}
-        </form>
+              <button
+                // type="submit"
+                disabled={loading || uploading}
+                className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              >
+                {loading ? "Submitting..." : "Submit"}
+              </button>
+              {error && <p className="text-red-700 text-sm">{error}</p>}
+            </form>
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
