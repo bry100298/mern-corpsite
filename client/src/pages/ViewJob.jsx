@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaStar, FaMapMarkerAlt, FaClock } from "react-icons/fa";
 import { useParams } from "react-router-dom";
-import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore from "swiper";
+// import { Swiper, SwiperSlide } from "swiper/react";
+// import SwiperCore from "swiper";
 import { useSelector } from "react-redux";
-import { Navigation } from "swiper/modules";
+// import { Navigation } from "swiper/modules";
 import "swiper/css/bundle";
 // import {
 //   FaBath,
