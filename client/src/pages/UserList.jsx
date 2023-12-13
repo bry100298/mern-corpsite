@@ -181,7 +181,7 @@ export default function UserList() {
                                 >
                                   Delete
                                 </button>
-                                <Link to={`/update-listing/${listing._id}`}>
+                                <Link to={`/update-joblist/${listing._id}`}>
                                   <button className="text-green-700 uppercase uppercase bg-green-200 rounded-md px-4 py-1 mt-2 hover:bg-green-300">
                                     Edit
                                   </button>
