@@ -24,6 +24,7 @@ export default function UpdateListing() {
     committment: "",
     jdesc: "",
     salary: "",
+    biodescr: "",
     // userRef: "",
   });
 
@@ -181,7 +182,7 @@ export default function UpdateListing() {
       if (data.success === false) {
         setError(data.message);
       }
-      navigate(`/listing/${data._id}`);
+      navigate(`/viewjob/${data._id}`);
     } catch (error) {
       setError(error.message);
       setLoading(false);
@@ -368,9 +369,9 @@ export default function UpdateListing() {
               required
             >
               <option value="">Select commitment</option>
-              <option value="fullTime">Full-time</option>
-              <option value="partTime">Part-time</option>
-              <option value="contract">Contract</option>
+              <option value="Full-time">Full-time</option>
+              <option value="Part-time">Part-time</option>
+              <option value="Contract">Contract</option>
             </select>
           </div>
 
@@ -419,6 +420,23 @@ export default function UpdateListing() {
               onChange={handleChange}
               value={formData.jdesc}
               id="jdesc"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+              placeholder="Describe the job..."
+              required
+            ></textarea>
+          </div>
+          <div className="mb-4">
+            <label
+              htmlFor="biodescr"
+              className="block text-gray-700 font-semibold mb-2"
+            >
+              Bio Description*
+            </label>
+            <textarea
+              type="text"
+              onChange={handleChange}
+              value={formData.biodescr}
+              id="biodescr"
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
               placeholder="Describe the job..."
               required

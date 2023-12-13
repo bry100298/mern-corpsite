@@ -24,8 +24,8 @@ const PrivateRoute = () => {
   const accessibleRoutes = [
     "/profile",
     "/create-job",
-    "/user-list",
-    "/update-list",
+    "/my-list",
+    // "/job-list",
   ];
 
   if (!isLoggedIn) {

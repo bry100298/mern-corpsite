@@ -9,11 +9,13 @@ import Careers from "./pages/Careers";
 import CreateJob from "./pages/CreateJob";
 
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 import PrivateRoute from "./components/PrivateRoute";
 import Admin from "./pages/Admin";
 import UserList from "./pages/UserList";
 import UpdateListing from "./pages/UpdateListing";
+import ViewJob from "./pages/ViewJob";
 
 export default function App() {
   return (
@@ -26,15 +28,20 @@ export default function App() {
         <Route path="/about" element={<About />} />
         {/* <Route path="/profile" element={<Profile />} /> */}
         <Route path="/careers" element={<Careers />} />
+        <Route path="/viewjob/:listingId" element={<ViewJob />} />
 
         <Route element={<PrivateRoute />}>
           <Route path="/profile" element={<Profile />} />
           <Route path="/create-job" element={<CreateJob />} />
-          <Route path="/job-list" element={<UserList />} />
-          <Route path="/update-joblist/:listingId" element={<UpdateListing />} />
+          <Route path="/my-list" element={<UserList />} />
+          <Route
+            path="/update-joblist/:listingId"
+            element={<UpdateListing />}
+          />
           <Route path="/admin" element={<Admin />} />
         </Route>
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }

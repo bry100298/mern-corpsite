@@ -143,7 +143,7 @@ export default function UserList() {
                               {/* {listing.cname} */}
                               <Link
                                 className="text-slate-700 font-semibold hover:underline truncate flex-1"
-                                to={`/listing/${listing._id}`}
+                                to={`/viewjob/${listing._id}`}
                               >
                                 <p>{listing.cname}</p>
                               </Link>
@@ -151,7 +151,7 @@ export default function UserList() {
                             <td className="px-4 py-2">{listing.cemail}</td>
                             <td className="px-4 py-2">
                               <div className="flex items-center gap-4">
-                                <Link to={`/listing/${listing._id}`}>
+                                <Link to={`/viewjob/${listing._id}`}>
                                   <img
                                     src={listing.clogo[0]}
                                     alt="listing cover"
@@ -230,13 +230,13 @@ export default function UserList() {
         </div>
       </div>
 
-      <footer className="bg-gray-800 text-white text-center py-4">
+      {/* <footer className="bg-gray-800 text-white text-center py-4">
         <div className="float-right d-none d-sm-inline">MIT 2-A</div>
         <strong>
           &copy;Developed by <a href="#">James Bryant Tin MIT504 2023</a>.
         </strong>{" "}
         All rights reserved.
-      </footer>
+      </footer> */}
     </div>
   );
 }

@@ -1,83 +1,76 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 export default function Careers() {
-  const { currentUser, loading, error } = useSelector((state) => state.user);
+  const [listings, setListings] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
-  const [userListings, setUserListings] = useState([]);
-  const [showListingsError, setShowListingsError] = useState(false);
   useEffect(() => {
-    async function fetchListings() {
+    const fetchListings = async () => {
       try {
-        setShowListingsError(false);
-        const res = await fetch(`/api/user/listings/${currentUser._id}`);
+        setLoading(true);
+        const res = await fetch("/api/listing/get");
         const data = await res.json();
-        if (data.success === false) {
-          setShowListingsError(true);
+        if (!res.ok) {
+          setError(true);
+          setLoading(false);
           return;
         }
-        setUserListings(data);
+        setListings(data);
+        setLoading(false);
+        setError(false);
       } catch (error) {
-        setShowListingsError(true);
+        setError(true);
+        setLoading(false);
       }
-    }
-
+    };
     fetchListings();
   }, []);
 
+  const truncateDescription = (text, maxLength) => {
+    if (text.length <= maxLength) return text;
+    return text.slice(0, maxLength) + "...";
+  };
+
   return (
     <div className="bg-gray-100 py-12">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      {loading && <p className="text-center my-7 text-2xl">Loading...</p>}
+      {error && (
+        <p className="text-center my-7 text-2xl">Something went wrong!</p>
+      )}
+
+      {/* <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8"> */}
+      <div className="max-w-12xl px-4 sm:px-6 lg:px-8">
         <h1 className="text-4xl font-bold text-gray-800 mb-8 text-center">
           Join Our Team
         </h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Job Postings */}
-          <div className="bg-white shadow-md rounded-lg p-6">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-              Senior Software Engineer
-            </h2>
-            <p className="text-gray-600 mb-4">
-              We are looking for a talented Senior Software Engineer to join our
-              team. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-              feugiat, diam nec ultrices vestibulum.
-            </p>
-            <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
-              Apply Now
-            </button>
-          </div>
-
-          {/* Job Postings */}
-          <div className="bg-white shadow-md rounded-lg p-6">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-              Marketing Manager
-            </h2>
-            <p className="text-gray-600 mb-4">
-              Join our team as a Marketing Manager and be a part of our exciting
-              growth. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Sed feugiat, diam nec ultrices vestibulum.
-            </p>
-            <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
-              Apply Now
-            </button>
-          </div>
-          {userListings.map((listing) => (
-            <div className="bg-white shadow-md rounded-lg p-6">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+          {listings.map((listing) => (
+            <div
+              key={listing._id}
+              className="bg-white shadow-md rounded-lg p-12"
+            >
+              <div className="flex items-center">
+                <img
+                  src={listing.clogo}
+                  alt={listing.cname}
+                  // className="w-12 h-12 rounded-full mr-4"
+                />
+              </div>
               <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-                {listing.cname}
+                <Link to={`/viewjob/${listing._id}`}>{listing.cname}</Link>
               </h2>
-              <p className="text-gray-600 mb-4">
-                We are looking for a talented Senior Software Engineer to join
-                our team. Lorem ipsum dolor sit amet, consectetur adipiscing
-                elit. Sed feugiat, diam nec ultrices vestibulum.
-              </p>
+              {listing.biodescr && (
+                <p className="text-gray-600 mb-4">
+                  {truncateDescription(listing.biodescr, 300)}
+                </p>
+              )}
               <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
-                Apply Now
+                <Link to={`/viewjob/${listing._id}`}>Apply Now</Link>
               </button>
             </div>
           ))}
-          {/* Add more job postings here */}
         </div>
       </div>
     </div>
