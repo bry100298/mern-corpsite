@@ -12,6 +12,33 @@ import {
   signOutUserStart,
 } from "../redux/user/userSlice";
 import { useDispatch } from "react-redux";
+
+// Modal Component
+const Modal = ({ onClose, children }) => {
+  const closeModal = (e) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
+  return (
+    <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center z-50">
+      <div
+        className="bg-white p-6 rounded-md shadow-md max-w-md w-full relative"
+        onClick={closeModal}
+      >
+        <button
+          onClick={onClose}
+          className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 focus:outline-none"
+        >
+          Close
+        </button>
+        {children}
+      </div>
+    </div>
+  );
+};
+
 export default function Header() {
   // const { currentUser } = useSelector((state) => state.user);
 
@@ -69,6 +96,13 @@ export default function Header() {
     }
   };
   const allowedAdminEmail = "jamestin100298@gmail.com";
+
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const toggleModal = () => {
+    setModalOpen(!modalOpen);
+  };
+
   return (
     // <header className="bg-slate-200 shadow-md">
     <header className="bg-blue-400 shadow-md">
@@ -137,6 +171,44 @@ export default function Header() {
           className="bg-slate-100 p-3 rounded-lg flex items-center"
         > */}
 
+        <div className="md:hidden">
+          <button
+            onClick={toggleModal}
+            className="text-white focus:outline-none"
+          >
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 6h16M4 12h16m-7 6h7"
+              />
+            </svg>
+          </button>
+        </div>
+        {modalOpen && (
+          <Modal onClose={toggleModal}>
+            <ul className="text-black text-center">
+              <li>
+                <a href="/">Home</a>
+              </li>
+              <li>
+                <a href="/careers">Careers</a>
+              </li>
+              <li>
+                <a href="/about">About</a>
+              </li>
+              <li>
+                <a href="/sign-in">Login</a>
+              </li>
+            </ul>
+          </Modal>
+        )}
         <ul className="flex gap-4">
           <Link to="/">
             {/* <li className="hidden sm:inline text-slate-700 hover:underline"> */}
