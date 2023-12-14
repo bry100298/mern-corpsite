@@ -2,11 +2,11 @@ import User from "../models/user.model.js";
 import bcryptjs from "bcryptjs";
 import { errorHandler } from "../utils/error.js";
 import jwt from "jsonwebtoken";
-import { OAuth2Client } from "google-auth-library";
-const client = new OAuth2Client(
-  process.env.GOOGLE_CLIENT_ID,
-  process.env.GOOGLE_CLIENT_SECRET
-);
+// import { OAuth2Client } from "google-auth-library";
+// const client = new OAuth2Client(
+//   process.env.GOOGLE_CLIENT_ID,
+//   process.env.GOOGLE_CLIENT_SECRET
+// );
 
 export const signup = async (req, res, next) => {
   //   console.log(req.body);
