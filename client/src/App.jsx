@@ -16,6 +16,7 @@ import Admin from "./pages/Admin";
 import UserList from "./pages/UserList";
 import UpdateListing from "./pages/UpdateListing";
 import ViewJob from "./pages/ViewJob";
+import Search from "./pages/Search";
 
 export default function App() {
   return (
@@ -29,6 +30,7 @@ export default function App() {
         {/* <Route path="/profile" element={<Profile />} /> */}
         <Route path="/careers" element={<Careers />} />
         <Route path="/viewjob/:listingId" element={<ViewJob />} />
+        <Route path="/Search" element={<Search />} />
 
         <Route element={<PrivateRoute />}>
           <Route path="/profile" element={<Profile />} />

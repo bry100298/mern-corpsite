@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
+const itemsPerPageOptions = [4, 8, 12];
+
 export default function Careers() {
+  //pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(itemsPerPageOptions[0]);
+  //
   const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -33,6 +39,18 @@ export default function Careers() {
     return text.slice(0, maxLength) + "...";
   };
 
+  // Calculate the indexes of items to be displayed on the current page
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = listings.slice(indexOfFirstItem, indexOfLastItem);
+
+  // Calculate total pages
+  const totalListingsPages = Math.ceil(listings.length / itemsPerPage);
+
+  const paginateListings = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
   return (
     <div className="bg-gray-100 py-12">
       {loading && <p className="text-center my-7 text-2xl">Loading...</p>}
@@ -46,7 +64,7 @@ export default function Careers() {
           Join Our Team
         </h1>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
-          {listings.map((listing) => (
+          {currentItems.map((listing) => (
             <div
               key={listing._id}
               className="bg-white shadow-md rounded-lg p-12"
@@ -71,6 +89,35 @@ export default function Careers() {
               </button>
             </div>
           ))}
+        </div>
+        {/* Pagination controls */}
+        <div className="flex justify-end mt-8">
+          <span className="mr-4">Items per page:</span>
+          <select
+            value={itemsPerPage}
+            onChange={(e) => setItemsPerPage(parseInt(e.target.value))}
+          >
+            {itemsPerPageOptions.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+          <span className="ml-4">
+            Page {currentPage} of {totalListingsPages}
+          </span>
+          <button
+            onClick={() => paginateListings(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            Previous
+          </button>
+          <button
+            onClick={() => paginateListings(currentPage + 1)}
+            disabled={currentPage === totalListingsPages}
+          >
+            Next
+          </button>
         </div>
       </div>
     </div>
