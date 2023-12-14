@@ -12,6 +12,22 @@ export default function Search() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
+  //   MODAL
+  const [showModal, setShowModal] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768); // Adjust this threshold as needed
+    };
+
+    handleResize(); // Check on initial render
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   useEffect(() => {
     const fetchListings = async () => {
       try {
@@ -180,14 +196,23 @@ export default function Search() {
   // Function to handle displaying job details
   const handleShowDetails = (job) => {
     setSelectedJob(job);
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
   };
 
   return (
-    <div className=" bg-gray-100">
+    <div className="bg-gray-100">
       <div className="container mx-auto px-4 py-8">
-        <div className="flex items-center justify-between">
-          <h1 className="text-3xl font-bold">developer</h1>
-          <div className="flex space-x-4">
+        {/* <div className="flex items-center justify-between"> */}
+        <div className="flex flex-col md:flex-row md:justify-between md:items-center space-y-4 md:space-y-0 md:space-x-4">
+          {/* <h1 className="text-3xl font-bold">developer</h1> */}
+          <h1 className="text-3xl font-bold md:order-1">developer</h1>
+          {/* <div className="flex space-x-4"> */}
+          {/* <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4"> */}
+          <div className="flex flex-wrap space-x-4 w-full md:w-auto md:order-2">
             <select className="border-gray-300 rounded-md">
               <option>Date posted</option>
             </select>
@@ -211,8 +236,10 @@ export default function Search() {
             </select>
           </div>
         </div>
-        <div className="grid grid-cols-3 gap-4 mt-4">
-          <div className="col-span-2">
+        {/* <div className="grid grid-cols-3 gap-4 mt-4">
+          <div className="col-span-2"> */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+          <div className="col-span-1 md:col-span-2">
             {loading ? (
               <p>Loading...</p>
             ) : error ? (
@@ -253,6 +280,22 @@ export default function Search() {
             </button>
           ))}
         </div>
+        {/* Mobile Modal for Job Details */}
+        {/* {selectedJob && showModal && ( */}
+        {selectedJob && isMobile && showModal && (
+          <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">
+            <div className="bg-white shadow-md rounded-md p-4 w-full max-w-md relative">
+              {/* Job details content for modal */}
+              <JobDetails job={selectedJob} onClose={handleCloseModal} />
+              <button
+                onClick={handleCloseModal}
+                className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 focus:outline-none"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
