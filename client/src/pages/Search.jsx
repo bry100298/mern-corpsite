@@ -111,7 +111,10 @@ export default function Search() {
   //   ];
 
   const JobCard = ({ job }) => (
-    <div className="bg-white shadow-md rounded-md p-4 mb-4">
+    <div
+      className="bg-white shadow-md rounded-md p-4 mb-4"
+      onClick={() => handleShowDetails(job)}
+    >
       <h3 className="text-lg font-bold">{job.pname}</h3>
       <p className="text-gray-600">{job.cname}</p>
       <p className="text-gray-600">{job.location}</p>
@@ -140,7 +143,8 @@ export default function Search() {
       <p className="text-gray-600">{job.salary}</p>
       <p className="text-gray-600">{job.committment}</p>
       <button className="bg-blue-600 text-white px-4 py-2 rounded-md mt-4">
-        Apply now
+        {/* Apply now */}
+        <Link to={`/viewjob/${job._id}`}>Apply Now</Link>
       </button>
       <div className="mt-4">
         <h4 className="text-lg font-bold">Profile insights</h4>
@@ -169,6 +173,14 @@ export default function Search() {
       </div>
     </div>
   );
+
+  // Define a state for displaying job details
+  const [selectedJob, setSelectedJob] = useState(null);
+
+  // Function to handle displaying job details
+  const handleShowDetails = (job) => {
+    setSelectedJob(job);
+  };
 
   return (
     <div className=" bg-gray-100">
@@ -216,10 +228,12 @@ export default function Search() {
               <JobCard key={index} job={listing} />
             ))} */}
           </div>
+
           <div className="col-span-1">
             {/* <JobDetails job={jobs[0]} /> */}
             {/* <JobDetails job={listings[0]} /> */}
-            {listings.length > 0 && <JobDetails job={listings[0]} />}
+            {/* {listings.length > 0 && <JobDetails job={listings[0]} />} */}
+            {selectedJob && <JobDetails job={selectedJob} />}
           </div>
         </div>
 
