@@ -25,6 +25,9 @@ export default function UpdateListing() {
     jdesc: "",
     salary: "",
     workoptions: "",
+    location: "",
+    skills: "",
+    requirements: "",
     biodescr: "",
     // userRef: "",
   });
@@ -117,6 +120,21 @@ export default function UpdateListing() {
   };
 
   const handleChange = (e) => {
+    // just incase for array
+    // const { id, value } = e.target;
+    // if (id === "skills") {
+    //   const skillsArray = value.split(","); // Split the input string by commas
+    //   setFormData({
+    //     ...formData,
+    //     [id]: skillsArray, // Update the skills as an array
+    //   });
+    // } else {
+    //   setFormData({
+    //     ...formData,
+    //     [id]: value,
+    //   });
+    // }
+
     // #dito nalang sa check box, kung hybrid, remote, onsite
     // if (e.target.id === "sale" || e.target.id === "rent") {
     //   setFormData({
@@ -166,6 +184,21 @@ export default function UpdateListing() {
         return setError("You must upload at least one image");
       // if (+formData.regularPrice < +formData.discountPrice)
       //   return setError("Discount price must be lower than regular price");
+
+      const skillsArray = Array.isArray(formData.skills)
+        ? formData.skills
+        : formData.skills.split(",").map((skill) => skill.trim());
+
+      const jdescArray = Array.isArray(formData.jdesc)
+        ? formData.jdesc
+        : formData.jdesc.split(",").map((jdescs) => jdescs.trim());
+
+      const requirementsArray = Array.isArray(formData.requirements)
+        ? formData.requirements
+        : formData.requirements
+            .split(",")
+            .map((requirement) => requirement.trim());
+
       setLoading(true);
       setError(false);
       const res = await fetch(`/api/listing/update/${params.listingId}`, {
@@ -175,6 +208,9 @@ export default function UpdateListing() {
         },
         body: JSON.stringify({
           ...formData,
+          skills: skillsArray,
+          jdesc: jdescArray,
+          requirements: requirementsArray,
           userRef: currentUser._id,
         }),
       });
@@ -413,10 +449,27 @@ export default function UpdateListing() {
           </div> */}
               <div className="mb-4">
                 <label
+                  htmlFor="biodescr"
+                  className="block text-gray-700 font-semibold mb-2"
+                >
+                  Bio Description *
+                </label>
+                <textarea
+                  type="text"
+                  onChange={handleChange}
+                  value={formData.biodescr}
+                  id="biodescr"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                  placeholder="Describe the job..."
+                  required
+                ></textarea>
+              </div>
+              <div className="mb-4">
+                <label
                   htmlFor="jdesc"
                   className="block text-gray-700 font-semibold mb-2"
                 >
-                  Job Description *
+                  Job Description (Separate by comma No Space)*
                 </label>
                 <textarea
                   type="text"
@@ -428,20 +481,38 @@ export default function UpdateListing() {
                   required
                 ></textarea>
               </div>
+
               <div className="mb-4">
                 <label
-                  htmlFor="biodescr"
+                  htmlFor="requirements"
                   className="block text-gray-700 font-semibold mb-2"
                 >
-                  Bio Description*
+                  Requirements (Separate by comma No Space)*
                 </label>
                 <textarea
                   type="text"
                   onChange={handleChange}
-                  value={formData.biodescr}
-                  id="biodescr"
+                  value={formData.requirements}
+                  id="requirements"
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                  placeholder="Describe the job..."
+                  placeholder="Describe the requirements..."
+                  required
+                ></textarea>
+              </div>
+              <div className="mb-4">
+                <label
+                  htmlFor="skills"
+                  className="block text-gray-700 font-semibold mb-2"
+                >
+                  Skills (Separate by comma No Space)*
+                </label>
+                <textarea
+                  type="text"
+                  onChange={handleChange}
+                  value={formData.skills}
+                  id="skills"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                  placeholder="Describe the skills..."
                   required
                 ></textarea>
               </div>
@@ -463,6 +534,26 @@ export default function UpdateListing() {
                   <option value="Onsite">Onsite</option>
                   <option value="Hybrid">Hybrid</option>
                   <option value="Remote">Remote</option>
+                </select>
+              </div>
+              <div className="mb-4 custom-select">
+                <label
+                  htmlFor="location"
+                  className="block text-gray-700 font-semibold mb-2"
+                >
+                  Location *
+                </label>
+                <select
+                  onChange={handleChange}
+                  value={formData.location}
+                  id="location"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                  required
+                >
+                  <option value="">Select location</option>
+                  <option value="Manila">Manila</option>
+                  <option value="Makati">Makati</option>
+                  <option value="Taguig">Taguig</option>
                 </select>
               </div>
               <div className="mb-4">

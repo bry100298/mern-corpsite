@@ -114,7 +114,7 @@ export default function Search() {
     <div className="bg-white shadow-md rounded-md p-4 mb-4">
       <h3 className="text-lg font-bold">{job.pname}</h3>
       <p className="text-gray-600">{job.cname}</p>
-      <p className="text-gray-600">Location</p>
+      <p className="text-gray-600">{job.location}</p>
       <p className="text-gray-600">{job.salary}</p>
       <p className="text-gray-600">{job.committment}</p>
       <div className="flex space-x-2 mt-2">
@@ -136,7 +136,7 @@ export default function Search() {
     <div className="bg-white shadow-md rounded-md p-4">
       <h3 className="text-lg font-bold">{job.pname}</h3>
       <p className="text-gray-600">{job.cname}</p>
-      <p className="text-gray-600">Location</p>
+      <p className="text-gray-600">{job.location}</p>
       <p className="text-gray-600">{job.salary}</p>
       <p className="text-gray-600">{job.committment}</p>
       <button className="bg-blue-600 text-white px-4 py-2 rounded-md mt-4">

@@ -89,9 +89,15 @@ export default function ViewJob() {
                 You'll need these skills for this job:
               </p>
               <ul className="list-disc list-inside pl-4 text-sm text-gray-800">
-                <li>Project management</li>
+                {/* <li>Project management</li>
                 <li>Web design</li>
-                <li>Graphic design</li>
+                <li>Graphic design</li> */}
+                {listing.skills &&
+                  listing.skills.map((skill, index) => (
+                    <li key={index} className="text-gray-600">
+                      {skill}
+                    </li>
+                  ))}
               </ul>
               <p className="text-sm text-gray-600 mt-4">
                 Do you have these skills?
@@ -111,14 +117,24 @@ export default function ViewJob() {
               </h2>
               <p className="text-sm text-gray-800 mb-4">
                 {/* As a Project Manager - Web Design, you'll: */}
-                {listing.jdesc}
-              </p>
-              <p className="text-sm text-gray-800 mb-4">
-                {/* As a Project Manager - Web Design, you'll: */}
                 {listing.biodescr}
               </p>
-              <p className="text-sm text-gray-800 mb-4">
+              <h3 className="text-sm font-bold text-gray-800 mb-2">
+                Your Responsibilities as a {listing.pname} would be:
+              </h3>
+              <ul className="list-disc list-inside pl-4 text-sm text-gray-800">
                 {/* As a Project Manager - Web Design, you'll: */}
+                {listing.jdesc &&
+                  listing.jdesc.map((jdescs, index) => (
+                    <li key={index} className="text-gray-600">
+                      {jdescs}
+                    </li>
+                  ))}
+              </ul>
+              <br />
+
+              {/* <p className="text-sm text-gray-800 mb-4">
+                As a Project Manager - Web Design, you'll:
                 As a {listing.pname}, you'll:
               </p>
               <ul className="list-disc list-inside pl-4 text-sm text-gray-800">
@@ -126,21 +142,20 @@ export default function ViewJob() {
                 <li>Work with clients to understand their needs</li>
                 <li>Coordinate with web designers and developers</li>
                 <li>Ensure quality and timely delivery of projects</li>
-              </ul>
-              <p className="text-sm text-gray-800 mt-4">
+              </ul> */}
+
+              {/* <p className="text-sm text-gray-800 mt-4"> */}
+              <h3 className="text-sm font-bold text-gray-800 mb-2">
                 You'll also need to have:
-              </p>
+              </h3>
               <ul className="list-disc list-inside pl-4 text-sm text-gray-800">
-                <li>
-                  Bachelor's degree in web design, computer science, or related
-                  field
-                </li>
-                <li>
-                  At least 3 years of experience in web design or project
-                  management
-                </li>
-                <li>Excellent communication and organizational skills</li>
-                <li>Knowledge of web design tools and frameworks</li>
+                {/* As a Project Manager - Web Design, you'll: */}
+                {listing.requirements &&
+                  listing.requirements.map((requirement, index) => (
+                    <li key={index} className="text-gray-600">
+                      {requirement}
+                    </li>
+                  ))}
               </ul>
             </div>
           </div>
@@ -161,6 +176,10 @@ export default function ViewJob() {
               <span className="text-sm text-gray-600">
                 {listing.committment}
               </span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <FaMapMarkerAlt className="text-gray-600" />
+              <span className="text-sm text-gray-600">{listing.location}</span>
             </div>
           </div>
         </div>

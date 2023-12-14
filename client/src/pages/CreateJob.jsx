@@ -16,14 +16,17 @@ export default function CreateJob() {
   const [files, setFiles] = useState([]);
   const [formData, setFormData] = useState({
     clogo: [],
-    cname: "Company A",
-    cemail: "company@gmail.com",
-    pname: "Senior Software Engineer",
+    cname: "",
+    cemail: "",
+    pname: "",
     role: "Programmer",
     committment: "Full-time",
-    jdesc: "Programming",
+    jdesc: "",
     salary: "40000",
     workoptions: "Remote",
+    location: "Manila",
+    skills: "",
+    requirements: "",
     biodescr:
       "We are looking for a talented Senior Software Engineer to join our team. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed feugiat, diam nec ultrices vestibulum.",
     // userRef: "",
@@ -150,6 +153,21 @@ export default function CreateJob() {
         return setError("You must upload at least one image");
       // if (+formData.regularPrice < +formData.discountPrice)
       //   return setError("Discount price must be lower than regular price");
+
+      const skillsArray = Array.isArray(formData.skills)
+        ? formData.skills
+        : formData.skills.split(",").map((skill) => skill.trim());
+
+      const jdescArray = Array.isArray(formData.jdesc)
+        ? formData.jdesc
+        : formData.jdesc.split(",").map((jdescs) => jdescs.trim());
+
+      const requirementsArray = Array.isArray(formData.requirements)
+        ? formData.requirements
+        : formData.requirements
+            .split(",")
+            .map((requirement) => requirement.trim());
+
       setLoading(true);
       setError(false);
       const res = await fetch("/api/listing/create", {
@@ -159,6 +177,9 @@ export default function CreateJob() {
         },
         body: JSON.stringify({
           ...formData,
+          skills: skillsArray,
+          jdesc: jdescArray,
+          requirements: requirementsArray,
           userRef: currentUser._id,
         }),
       });
@@ -397,10 +418,27 @@ export default function CreateJob() {
           </div> */}
               <div className="mb-4">
                 <label
+                  htmlFor="biodescr"
+                  className="block text-gray-700 font-semibold mb-2"
+                >
+                  Bio Description *
+                </label>
+                <textarea
+                  type="text"
+                  onChange={handleChange}
+                  value={formData.biodescr}
+                  id="biodescr"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                  placeholder="Describe the job..."
+                  required
+                ></textarea>
+              </div>
+              <div className="mb-4">
+                <label
                   htmlFor="jdesc"
                   className="block text-gray-700 font-semibold mb-2"
                 >
-                  Job Description *
+                  Job Description (Separate by comma No Space)*
                 </label>
                 <textarea
                   type="text"
@@ -414,18 +452,35 @@ export default function CreateJob() {
               </div>
               <div className="mb-4">
                 <label
-                  htmlFor="biodescr"
+                  htmlFor="requirements"
                   className="block text-gray-700 font-semibold mb-2"
                 >
-                  Bio Description*
+                  Requirements (Separate by comma No Space)*
                 </label>
                 <textarea
                   type="text"
                   onChange={handleChange}
-                  value={formData.biodescr}
-                  id="biodescr"
+                  value={formData.requirements}
+                  id="requirements"
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                  placeholder="Describe the job..."
+                  placeholder="Describe the requirements..."
+                  required
+                ></textarea>
+              </div>
+              <div className="mb-4">
+                <label
+                  htmlFor="skills"
+                  className="block text-gray-700 font-semibold mb-2"
+                >
+                  Skills (Separate by comma No Space)*
+                </label>
+                <textarea
+                  type="text"
+                  onChange={handleChange}
+                  value={formData.skills}
+                  id="skills"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                  placeholder="Describe the skills..."
                   required
                 ></textarea>
               </div>
@@ -447,6 +502,26 @@ export default function CreateJob() {
                   <option value="Onsite">Onsite</option>
                   <option value="Hybrid">Hybrid</option>
                   <option value="Remote">Remote</option>
+                </select>
+              </div>
+              <div className="mb-4 custom-select">
+                <label
+                  htmlFor="location"
+                  className="block text-gray-700 font-semibold mb-2"
+                >
+                  Location *
+                </label>
+                <select
+                  onChange={handleChange}
+                  value={formData.location}
+                  id="location"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                  required
+                >
+                  <option value="">Select location</option>
+                  <option value="Manila">Manila</option>
+                  <option value="Makati">Makati</option>
+                  <option value="Taguig">Taguig</option>
                 </select>
               </div>
               <div className="mb-4">

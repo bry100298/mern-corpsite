@@ -27,7 +27,7 @@ const listingSchema = new mongoose.Schema(
       required: true,
     },
     jdesc: {
-      type: String,
+      type: Array,
       required: true,
     },
     salary: {
@@ -40,6 +40,18 @@ const listingSchema = new mongoose.Schema(
     },
     workoptions: {
       type: String,
+      required: true,
+    },
+    location: {
+      type: String,
+      required: true,
+    },
+    skills: {
+      type: Array,
+      required: true,
+    },
+    requirements: {
+      type: Array,
       required: true,
     },
     userRef: {
