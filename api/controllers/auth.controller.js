@@ -2,6 +2,11 @@ import User from "../models/user.model.js";
 import bcryptjs from "bcryptjs";
 import { errorHandler } from "../utils/error.js";
 import jwt from "jsonwebtoken";
+import { OAuth2Client } from "google-auth-library";
+const client = new OAuth2Client(
+  process.env.GOOGLE_CLIENT_ID,
+  process.env.GOOGLE_CLIENT_SECRET
+);
 
 export const signup = async (req, res, next) => {
   //   console.log(req.body);
@@ -75,6 +80,55 @@ export const google = async (req, res, next) => {
     next(error);
   }
 };
+
+// export const google = async (req, res, next) => {
+//   try {
+//     const token = req.body.token; // Assuming the token is sent in the request body
+//     const ticket = await client.verifyIdToken({
+//       idToken: token,
+//       audience: process.env.GOOGLE_CLIENT_ID, // Verify the token against your client ID
+//     });
+//     const payload = ticket.getPayload();
+//     const { email } = payload; // Extract the user's email from the verified token
+
+//     // Check if the user exists in your database
+//     const user = await User.findOne({ email });
+
+//     if (user) {
+//       // If user exists, create a JWT token and send user data
+//       const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+//       const { password: pass, ...rest } = user._doc;
+//       res
+//         .cookie("access_token", token, { httpOnly: true })
+//         .status(200)
+//         .json(rest);
+//     } else {
+//       // If user doesn't exist, create a new user with Google credentials
+//       const generatedPassword =
+//         Math.random().toString(36).slice(-8) +
+//         Math.random().toString(36).slice(-8);
+//       const hashedPassword = bcryptjs.hashSync(generatedPassword, 10);
+//       const newUser = new User({
+//         username:
+//           payload.name.split(" ").join("").toLowerCase() +
+//           Math.random().toString(36).slice(-4),
+//         email: payload.email,
+//         password: hashedPassword,
+//         avatar: payload.picture,
+//       });
+
+//       await newUser.save();
+//       const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET);
+//       const { password: pass, ...rest } = newUser._doc;
+//       res
+//         .cookie("access_token", token, { httpOnly: true })
+//         .status(200)
+//         .json(rest);
+//     }
+//   } catch (error) {
+//     next(error);
+//   }
+// };
 
 export const signOut = async (req, res, next) => {
   try {
