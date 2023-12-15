@@ -151,17 +151,20 @@ export default function Search() {
   );
 
   // Define a custom component for rendering the expanded view of a job
-  const JobDetails = ({ job }) => (
-    <div className="bg-white shadow-md rounded-md p-4">
-      <h3 className="text-lg font-bold">{job.pname}</h3>
-      <p className="text-gray-600">{job.cname}</p>
-      <p className="text-gray-600">{job.location}</p>
-      <p className="text-gray-600">{job.salary}</p>
-      <p className="text-gray-600">{job.committment}</p>
-      <button className="bg-blue-600 text-white px-4 py-2 rounded-md mt-4">
-        {/* Apply now */}
-        <Link to={`/viewjob/${job._id}`}>Apply Now</Link>
-      </button>
+  const JobDetails = ({ job, onClose }) => (
+    // <div className="bg-white shadow-md rounded-md p-4">
+    <div className="bg-white shadow-md rounded-md p-4 max-h-[80vh] overflow-y-auto">
+      <div className="sticky top-0 bg-white shadow-md rounded-md p-4 mb-4">
+        <h3 className="text-lg font-bold">{job.pname}</h3>
+        <p className="text-gray-600">{job.cname}</p>
+        <p className="text-gray-600">{job.location}</p>
+        <p className="text-gray-600">{job.salary}</p>
+        <p className="text-gray-600">{job.committment}</p>
+        <button className="bg-blue-600 text-white px-4 py-2 rounded-md mt-4">
+          {/* Apply now */}
+          <Link to={`/viewjob/${job._id}`}>Apply Now</Link>
+        </button>
+      </div>
       <div className="mt-4">
         <h4 className="text-lg font-bold">Profile insights</h4>
         <p className="text-gray-600">
@@ -187,6 +190,12 @@ export default function Search() {
           {/* Add other details as needed */}
         </ul>
       </div>
+      {/* <button
+        onClick={onClose}
+        className="bg-red-600 text-white px-4 py-2 rounded-md mt-4"
+      >
+        Close
+      </button> */}
     </div>
   );
 
