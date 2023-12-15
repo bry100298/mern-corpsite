@@ -313,9 +313,14 @@ export default function Search() {
             </div>
             <div className="flex items-center gap-2">
               <label className="font-semibold">Sort:</label>
-              <select id="sort_order" className="border rounded-lg p-3">
-                <option>Latest post</option>
-                <option>Oldest post</option>
+              <select
+                id="sort_order"
+                className="border rounded-lg p-3"
+                onChange={handleChange}
+                defaultValue={"created_at_desc"}
+              >
+                <option value="createdAt_desc">Latest post</option>
+                <option value="createdAt_asc">Oldest post</option>
               </select>
             </div>
             <form onSubmit={handleSubmit} className="relative w-full max-w-md">
