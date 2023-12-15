@@ -210,12 +210,8 @@ export default function Search() {
   return (
     <div className="bg-gray-100">
       <div className="container mx-auto px-4 py-8">
-        {/* <div className="flex items-center justify-between"> */}
         <div className="flex flex-col md:flex-row md:justify-between md:items-center space-y-4 md:space-y-0 md:space-x-4">
-          {/* <h1 className="text-3xl font-bold">developer</h1> */}
-          <h1 className="text-3xl font-bold md:order-1">developer</h1>
-          {/* <div className="flex space-x-4"> */}
-          {/* <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4"> */}
+          {/* <h1 className="text-3xl font-bold md:order-1">developer</h1> */}
           <div className="flex flex-wrap space-x-4 w-full md:w-auto md:order-2">
             <form className="relative w-full max-w-md">
               <input
@@ -228,26 +224,20 @@ export default function Search() {
             </form>
             <div className="flex items-center gap-2">
               <select className="border rounded-lg p-3">
-                {/* <select className="border-gray-300 rounded-md"> */}
                 <option>Date posted</option>
               </select>
             </div>
 
             <div className="flex items-center gap-2">
               <select className="border rounded-lg p-3">
-                {/* <select className="border-gray-300 rounded-md"> */}
                 <option value="">Work Setup</option>
                 <option value="Onsite">Onsite</option>
                 <option value="Hybrid">Hybrid</option>
                 <option value="Remote">Remote</option>
               </select>
             </div>
-            {/* <select className="border-gray-300 rounded-md">
-              <option>Within 25 miles</option>
-            </select> */}
             <div className="flex items-center gap-2">
               <select className="border rounded-lg p-3">
-                {/* <select className="border-gray-300 rounded-md"> */}
                 <option>Job type</option>
                 <option value="Full-time">Full-time</option>
                 <option value="Part-time">Part-time</option>
@@ -256,18 +246,12 @@ export default function Search() {
             </div>
             <div className="flex items-center gap-2">
               <select className="border rounded-lg p-3">
-                {/* <select className="border-gray-300 rounded-md"> */}
                 <option>Location</option>
                 <option value="Manila">Manila</option>
                 <option value="Makati">Makati</option>
                 <option value="Taguig">Taguig</option>
               </select>
             </div>
-            {/* <select className="border-gray-300 rounded-md">
-              <option>Sort by:</option>
-              <option value="Latest">Latest</option>
-              <option value="Oldest">Oldest</option>
-            </select> */}
             <div className="flex items-center gap-2">
               <label className="font-semibold">Sort:</label>
               <select id="sort_order" className="border rounded-lg p-3">
@@ -275,35 +259,13 @@ export default function Search() {
                 <option>Oldest post</option>
               </select>
             </div>
-            {/* <div className="bg-blue-800 flex justify-between items-center max-w-8xl mx-auto p-3 h-8"> */}
             <form className="relative w-full max-w-md">
-              {/* <input
-                type="text"
-                placeholder="Search..."
-                className="bg-white border-2 border-gray-300 focus:outline-none focus:border-blue-500 rounded-full py-1 px-3 w-full h-7"
-              /> */}
-              <button className="bg-gray-700 hover:bg-gray-900 text-white font-bold focus:outline-none focus:shadow-outline rounded-full py-1 px-3 w-full h-10">
+              <button className="relative bg-gray-700 hover:bg-gray-900 text-white font-bold focus:outline-none focus:shadow-outline rounded-full py-1 px-3 w-full h-10">
                 Find Jobs
               </button>
-              {/* <button
-                type="submit"
-                className="absolute right-0 top-0 mt-2 mr-3"
-              >
-                <FaSearch className="text-gray-600" />
-              </button> */}
             </form>
-            {/* </div> */}
-
-            {/* <select className="border-gray-300 rounded-md">
-              <option>Company</option>
-            </select> */}
-            {/* <select className="border-gray-300 rounded-md">
-              <option>Job Language</option>
-            </select> */}
           </div>
         </div>
-        {/* <div className="grid grid-cols-3 gap-4 mt-4">
-          <div className="col-span-2"> */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
           <div className="col-span-1 md:col-span-2">
             {loading ? (
@@ -315,17 +277,9 @@ export default function Search() {
                 <JobCard key={index} job={listing} />
               ))
             )}
-            {/* {listings.map((listing, index) => (
-              // {jobs.map((job) => (
-              //   <JobCard job={job} />
-              <JobCard key={index} job={listing} />
-            ))} */}
           </div>
 
           <div className="col-span-1">
-            {/* <JobDetails job={jobs[0]} /> */}
-            {/* <JobDetails job={listings[0]} /> */}
-            {/* {listings.length > 0 && <JobDetails job={listings[0]} />} */}
             {selectedJob && <JobDetails job={selectedJob} />}
           </div>
         </div>
@@ -353,12 +307,6 @@ export default function Search() {
             <div className="bg-white shadow-md rounded-md p-4 w-full max-w-md relative">
               {/* Job details content for modal */}
               <JobDetails job={selectedJob} onClose={handleCloseModal} />
-              {/* <button
-                onClick={handleCloseModal}
-                className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 focus:outline-none"
-              >
-                Close
-              </button> */}
             </div>
           </div>
         )}
