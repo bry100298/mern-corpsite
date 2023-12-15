@@ -1,7 +1,7 @@
 import React from "react";
 import plmunlogo from "../assets/plmun-logo.png";
 import { FaSearch, FaEnvelope, FaPhone } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { useSelector } from "react-redux";
 import { useEffect, useState, useRef } from "react";
@@ -40,6 +40,25 @@ const Modal = ({ onClose, children }) => {
 };
 
 export default function Header() {
+  // search
+  const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.set("keyword", searchTerm);
+    const searchQuery = urlParams.toString();
+    navigate(`/search?${searchQuery}`);
+  };
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search);
+    const searchTermFromUrl = urlParams.get("keyword");
+    if (searchTermFromUrl) {
+      setSearchTerm(searchTermFromUrl);
+    }
+  }, [location.search]);
+
   // const { currentUser } = useSelector((state) => state.user);
 
   // const [showDropdown, setShowDropdown] = useState(false);
@@ -107,11 +126,13 @@ export default function Header() {
     // <header className="bg-slate-200 shadow-md">
     <header className="bg-blue-400 shadow-md">
       <div className="bg-blue-800 flex justify-between items-center max-w-8xl mx-auto p-3 h-8">
-        <form className="relative w-full max-w-md">
+        <form onSubmit={handleSubmit} className="relative w-full max-w-md">
           <input
             type="text"
             placeholder="Search..."
             className="bg-white border-2 border-gray-300 focus:outline-none focus:border-blue-500 rounded-full py-1 px-3 w-full h-7"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
           <button type="submit" className="absolute right-0 top-0 mt-2 mr-3">
             <FaSearch className="text-gray-600" />
@@ -204,9 +225,9 @@ export default function Header() {
                 <a href="/about">About</a>
               </li>
               {!currentUser && (
-              <li>
-                <a href="/sign-in">Login</a>
-              </li>
+                <li>
+                  <a href="/sign-in">Login</a>
+                </li>
               )}
             </ul>
           </Modal>
