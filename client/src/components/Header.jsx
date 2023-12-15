@@ -283,7 +283,7 @@ export default function Header() {
               </div>
               {showDropdown && (
                 <ul className="absolute bg-white shadow-md rounded-md mt-8 py-2 w-36 right-0 z-20">
-                  {currentUser.email === "jamestin100298@gmail.com" && (
+                  {/* {currentUser.email === "jamestin100298@gmail.com" && (
                     // Display admin link and specific functionalities only for this email
                     <li className="block px-4 py-2 text-gray-800 hover:bg-blue-200">
                       <Link to="/admin" onClick={closeDropdown}>
@@ -291,7 +291,7 @@ export default function Header() {
                       </Link>
                     </li>
                     // Other admin-specific links can be added here
-                  )}
+                  )} */}
 
                   <li className="block px-4 py-2 text-gray-800 hover:bg-blue-200">
                     <Link to="/profile" onClick={closeDropdown}>
