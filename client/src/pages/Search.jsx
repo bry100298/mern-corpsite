@@ -276,36 +276,55 @@ export default function Search() {
           {/* <div className="flex space-x-4"> */}
           {/* <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4"> */}
           <div className="flex flex-wrap space-x-4 w-full md:w-auto md:order-2">
-            <select className="border-gray-300 rounded-md">
-              <option>Date posted</option>
-            </select>
-            <select className="border-gray-300 rounded-md">
-              <option value="">Work Setup</option>
-              <option value="Onsite">Onsite</option>
-              <option value="Hybrid">Hybrid</option>
-              <option value="Remote">Remote</option>
-            </select>
+            <div className="flex items-center gap-2">
+              <select className="border rounded-lg p-3">
+                {/* <select className="border-gray-300 rounded-md"> */}
+                <option>Date posted</option>
+              </select>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <select className="border rounded-lg p-3">
+                {/* <select className="border-gray-300 rounded-md"> */}
+                <option value="">Work Setup</option>
+                <option value="Onsite">Onsite</option>
+                <option value="Hybrid">Hybrid</option>
+                <option value="Remote">Remote</option>
+              </select>
+            </div>
             {/* <select className="border-gray-300 rounded-md">
               <option>Within 25 miles</option>
             </select> */}
-            <select className="border-gray-300 rounded-md">
-              <option>Job type</option>
-              <option value="Full-time">Full-time</option>
-              <option value="Part-time">Part-time</option>
-              <option value="Contract">Contract</option>
-            </select>
-            <select className="border-gray-300 rounded-md">
-              <option>Location</option>
-              <option value="Manila">Manila</option>
-              <option value="Makati">Makati</option>
-              <option value="Taguig">Taguig</option>
-            </select>
-            <select className="border-gray-300 rounded-md">
+            <div className="flex items-center gap-2">
+              <select className="border rounded-lg p-3">
+                {/* <select className="border-gray-300 rounded-md"> */}
+                <option>Job type</option>
+                <option value="Full-time">Full-time</option>
+                <option value="Part-time">Part-time</option>
+                <option value="Contract">Contract</option>
+              </select>
+            </div>
+            <div className="flex items-center gap-2">
+              <select className="border rounded-lg p-3">
+                {/* <select className="border-gray-300 rounded-md"> */}
+                <option>Location</option>
+                <option value="Manila">Manila</option>
+                <option value="Makati">Makati</option>
+                <option value="Taguig">Taguig</option>
+              </select>
+            </div>
+            {/* <select className="border-gray-300 rounded-md">
               <option>Sort by:</option>
               <option value="Latest">Latest</option>
               <option value="Oldest">Oldest</option>
-            </select>
-
+            </select> */}
+            <div className="flex items-center gap-2">
+              <label className="font-semibold">Sort:</label>
+              <select id="sort_order" className="border rounded-lg p-3">
+                <option>Latest post</option>
+                <option>Oldest post</option>
+              </select>
+            </div>
             {/* <div className="bg-blue-800 flex justify-between items-center max-w-8xl mx-auto p-3 h-8"> */}
             <form className="relative w-full max-w-md">
               {/* <input
