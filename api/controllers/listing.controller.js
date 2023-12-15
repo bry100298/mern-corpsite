@@ -62,62 +62,134 @@ export const getListing = async (req, res, next) => {
   }
 };
 
+// export const getAllListings = async (req, res, next) => {
+//   try {
+//     const listings = await Listing.find({}); // Retrieve all listings
+//     res.status(200).json(listings);
+//   } catch (error) {
+//     next(error);
+//   }
+// };
+
+/*
+localhost:3000/api/listing/get?keyword=software&location=New%20York&sort=pname&order=asc
+localhost:3000/api/listing/get?keyword=software&location=Makati
+localhost:3000/api/listing/get?keyword=engineer
+
+
+localhost:3000/api/listing/get?
+keyword=software&
+sort=pname&
+order=asc&
+limit=10&
+startIndex=0&
+workoptions=true&
+committment=false&
+location=New%20York
+
+GET http://localhost:3000/api/listing/get?keyword=your_keyword&location=your_location&sort=createdAt&order=asc&workoptions=your_option&commitment=your_commitment
+
+
+http://localhost:3000/api/listing/get?committment=Full-time&workoptions=Remote
+http://localhost:3000/api/listing/get?committment=Full-time&workoptions=Remote&limit=1
+*/
+
 export const getAllListings = async (req, res, next) => {
   try {
-    const listings = await Listing.find({}); // Retrieve all listings
+    const { keyword, location, sort, order, workoptions, committment } =
+      req.query;
+    const limit = parseInt(req.query.limit) || 8;
+    const startIndex = parseInt(req.query.startIndex) || 0;
+    let filter = {};
+
+    // Check if keyword, location, workoptions, or commitment parameters exist
+    if (keyword) {
+      filter.$or = [
+        { pname: { $regex: keyword, $options: "i" } },
+        { jdesc: { $regex: keyword, $options: "i" } },
+      ];
+    }
+
+    if (location) {
+      filter.location = { $regex: location, $options: "i" };
+    }
+
+    if (workoptions) {
+      filter.workoptions = { $regex: workoptions, $options: "i" };
+    }
+
+    if (committment) {
+      filter.committment = { $regex: committment, $options: "i" };
+    }
+
+    const sortOrder = order === "asc" ? 1 : -1;
+    const listings = await Listing.find(filter)
+      // .sort({ [sort || "createdAt"]: sortOrder })
+      .sort({ [sort]: sortOrder })
+      .limit(limit)
+      .skip(startIndex);
+
     res.status(200).json(listings);
   } catch (error) {
     next(error);
   }
 };
 
-export const getListings = async (req, res, next) => {
-  try {
-    const limit = parseInt(req.query.limit) || 9;
-    const startIndex = parseInt(req.query.startIndex) || 0;
-    let offer = req.query.offer;
+// export const getListings = async (req, res, next) => {
+//   try {
+//     const limit = parseInt(req.query.limit) || 8;
+//     const startIndex = parseInt(req.query.startIndex) || 0;
 
-    if (offer === undefined || offer === "false") {
-      offer = { $in: [false, true] };
-    }
+//     let workSetup = req.query.workoptions;
+//     if (workSetup === undefined || workSetup === "false") {
+//       workSetup = { $in: [false, true] };
+//     }
 
-    let furnished = req.query.furnished;
+//     let jobType = req.query.committment;
+//     if (jobType === undefined || jobType === "false") {
+//       jobType = { $in: [false, true] };
+//     }
 
-    if (furnished === undefined || furnished === "false") {
-      furnished = { $in: [false, true] };
-    }
+//     let location = req.query.location;
+//     if (location === undefined || location === "false") {
+//       location = { $in: [false, true] };
+//     }
 
-    let parking = req.query.parking;
+//     // let skills = req.query.skills;
+//     // if (skills === undefined || skills === "all") {
+//     //   skills = { $in: ["React", "Python"] };
+//     // }
 
-    if (parking === undefined || parking === "false") {
-      parking = { $in: [false, true] };
-    }
+//     const searchTerm = req.query.searchTerm || "";
 
-    let type = req.query.type;
+//     const sort = req.query.sort || "createdAt";
 
-    if (type === undefined || type === "all") {
-      type = { $in: ["sale", "rent"] };
-    }
+//     const order = req.query.order || "desc";
 
-    const searchTerm = req.query.searchTerm || "";
+//     // const listings = await Listing.find({
+//     //   $and: [
+//     //     { workSetup },
+//     //     { jobType },
+//     //     { location },
+//     //     {
+//     //       $or: [{ cname: { $regex: searchTerm, $options: "i" } }],
+//     //     },
+//     //   ],
+//     // });
 
-    const sort = req.query.sort || "createdAt";
+//     const listings = await Listing.find({
+//       cname: { $regex: searchTerm, $options: "i" },
+//       workSetup,
+//       jobType,
+//       location,
+//       // skills,
+//     })
+//       .sort({ [sort]: order })
+//       .limit(limit)
+//       .skip(startIndex);
 
-    const order = req.query.order || "desc";
-
-    const listings = await Listing.find({
-      name: { $regex: searchTerm, $options: "i" },
-      offer,
-      furnished,
-      parking,
-      type,
-    })
-      .sort({ [sort]: order })
-      .limit(limit)
-      .skip(startIndex);
-
-    return res.status(200).json(listings);
-  } catch (error) {
-    next(error);
-  }
-};
+//     return res.status(200).json(listings);
+//   } catch (error) {
+//     next(error);
+//   }
+// };

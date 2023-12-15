@@ -280,23 +280,57 @@ export default function Search() {
               <option>Date posted</option>
             </select>
             <select className="border-gray-300 rounded-md">
-              <option>Remote</option>
+              <option value="">Work Setup</option>
+              <option value="Onsite">Onsite</option>
+              <option value="Hybrid">Hybrid</option>
+              <option value="Remote">Remote</option>
             </select>
-            <select className="border-gray-300 rounded-md">
+            {/* <select className="border-gray-300 rounded-md">
               <option>Within 25 miles</option>
-            </select>
+            </select> */}
             <select className="border-gray-300 rounded-md">
               <option>Job type</option>
+              <option value="Full-time">Full-time</option>
+              <option value="Part-time">Part-time</option>
+              <option value="Contract">Contract</option>
             </select>
             <select className="border-gray-300 rounded-md">
               <option>Location</option>
+              <option value="Manila">Manila</option>
+              <option value="Makati">Makati</option>
+              <option value="Taguig">Taguig</option>
             </select>
             <select className="border-gray-300 rounded-md">
+              <option>Sort by:</option>
+              <option value="Latest">Latest</option>
+              <option value="Oldest">Oldest</option>
+            </select>
+
+            {/* <div className="bg-blue-800 flex justify-between items-center max-w-8xl mx-auto p-3 h-8"> */}
+            <form className="relative w-full max-w-md">
+              {/* <input
+                type="text"
+                placeholder="Search..."
+                className="bg-white border-2 border-gray-300 focus:outline-none focus:border-blue-500 rounded-full py-1 px-3 w-full h-7"
+              /> */}
+              <button className="bg-gray-700 hover:bg-gray-900 text-white font-bold focus:outline-none focus:shadow-outline rounded-full py-1 px-3 w-full h-10">
+                Find Jobs
+              </button>
+              {/* <button
+                type="submit"
+                className="absolute right-0 top-0 mt-2 mr-3"
+              >
+                <FaSearch className="text-gray-600" />
+              </button> */}
+            </form>
+            {/* </div> */}
+
+            {/* <select className="border-gray-300 rounded-md">
               <option>Company</option>
-            </select>
-            <select className="border-gray-300 rounded-md">
+            </select> */}
+            {/* <select className="border-gray-300 rounded-md">
               <option>Job Language</option>
-            </select>
+            </select> */}
           </div>
         </div>
         {/* <div className="grid grid-cols-3 gap-4 mt-4">

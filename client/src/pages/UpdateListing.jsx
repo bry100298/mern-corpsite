@@ -530,7 +530,7 @@ export default function UpdateListing() {
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                   required
                 >
-                  <option value="">Select commitment</option>
+                  <option value="">Select location type</option>
                   <option value="Onsite">Onsite</option>
                   <option value="Hybrid">Hybrid</option>
                   <option value="Remote">Remote</option>
