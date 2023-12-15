@@ -155,9 +155,9 @@ export default function Search() {
     <>
       {/* Modal for mobile devices */}
       {selectedJob && isMobile && showModal && (
-        <div className="bg-white shadow-md rounded-md p-4 max-h-[80vh] overflow-y-auto">
-          <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">
-            <div className="bg-white shadow-md rounded-md p-4 w-full max-w-md relative">
+        <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">
+          <div className="bg-white shadow-md rounded-md p-4 w-full max-w-md relative">
+            <div className="bg-white shadow-md rounded-md p-4 max-h-[80vh] overflow-y-auto">
               {/* Job details content for modal */}
               <div className="sticky top-0 bg-white shadow-md rounded-md p-4 mb-4">
                 <h3 className="text-lg font-bold">{job.pname}</h3>
