@@ -1,9 +1,73 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const itemsPerPageOptions = [4, 8, 12];
 
 export default function Search() {
+  const navigate = useNavigate();
+  // SEARCH
+  const [sidebardata, setSidebardata] = useState({
+    keyword: "",
+    workoptions: "",
+    committment: "",
+    location: "",
+    sort: "created_at",
+    order: "desc",
+  });
+  // console.log(sidebardata);
+
+  const handleChange = (e) => {
+    if (e.target.id === "keyword") {
+      setSidebardata({ ...sidebardata, keyword: e.target.value });
+    }
+
+    if (e.target.id === "worksetup") {
+      setSidebardata({
+        ...sidebardata,
+        location: e.target.value, // Assign the selected jobtype directly
+      });
+    }
+
+    if (e.target.id === "jobtype") {
+      setSidebardata({
+        ...sidebardata,
+        location: e.target.value, // Assign the selected jobtype directly
+      });
+    }
+
+    if (e.target.id === "location") {
+      setSidebardata({
+        ...sidebardata,
+        location: e.target.value, // Assign the selected location directly
+      });
+    }
+
+    if (e.target.id === "sort_order") {
+      const sort = e.target.value.split("_")[0] || "created_at";
+
+      const order = e.target.value.split("_")[1] || "desc";
+
+      setSidebardata({ ...sidebardata, sort, order });
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const { keyword, worksetup, jobtype, location, sort, order } = sidebardata;
+
+    const searchParams = new URLSearchParams({
+      keyword,
+      worksetup,
+      jobtype,
+      location,
+      sort,
+      order,
+    });
+
+    navigate(`/search?${searchParams.toString()}`);
+  };
+
   //pagination
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(itemsPerPageOptions[0]);
@@ -66,6 +130,65 @@ export default function Search() {
   const paginateListings = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
+
+  //   const jobs = [
+  //     {
+  //       title: "Web Developer",
+  //       company: "Speech Improvement Center",
+  //       location: "Manila",
+  //       salary: "PHP 25,000 - PHP 44,000 a month",
+  //       type: "Full-time",
+  //       tags: ["Easy apply", "Urgently hiring"],
+  //       skills: ["WordPress (required)", "CSS"],
+  //       details:
+  //         "Creating dynamic & user friendly website. Regular website maintenance and security updates. Minimum 4 years of experience with WordPress.",
+  //       posted: "1 day ago",
+  //     },
+  //     {
+  //       title: "Wordpress Web Developer (Entry Level)",
+  //       company: "Stone Refo",
+  //       location: "Manila",
+  //       salary: "PHP 30,000 a month",
+  //       type: "Full-time",
+  //       tags: ["Easy apply", "Urgently hiring"],
+  //       skills: ["Demonstrable graphic design skills with strong portfolio"],
+  //       details: "Remote & Flexible Schedule. Monday to Friday.",
+  //       posted: "Three weeks ago",
+  //     },
+  //     {
+  //       title: "Wordpress Web Developer (Entry Level)",
+  //       company: "Stone Refo",
+  //       location: "Manila",
+  //       salary: "PHP 30,000 a month",
+  //       type: "Full-time",
+  //       tags: ["Easy apply", "Urgently hiring"],
+  //       skills: ["Demonstrable graphic design skills with strong portfolio"],
+  //       details: "Remote & Flexible Schedule. Monday to Friday.",
+  //       posted: "Three weeks ago",
+  //     },
+  //     {
+  //       title: "Wordpress Web Developer (Entry Level)",
+  //       company: "Stone Refo",
+  //       location: "Manila",
+  //       salary: "PHP 30,000 a month",
+  //       type: "Full-time",
+  //       tags: ["Easy apply", "Urgently hiring"],
+  //       skills: ["Demonstrable graphic design skills with strong portfolio"],
+  //       details: "Remote & Flexible Schedule. Monday to Friday.",
+  //       posted: "Three weeks ago",
+  //     },
+  //     {
+  //       title: "Wordpress Web Developer (Entry Level)",
+  //       company: "Stone Refo",
+  //       location: "Manila",
+  //       salary: "PHP 30,000 a month",
+  //       type: "Full-time",
+  //       tags: ["Easy apply", "Urgently hiring"],
+  //       skills: ["Demonstrable graphic design skills with strong portfolio"],
+  //       details: "Remote & Flexible Schedule. Monday to Friday.",
+  //       posted: "Three weeks ago",
+  //     },
+  //   ];
 
   const JobCard = ({ job }) => (
     <div
@@ -217,15 +340,31 @@ export default function Search() {
           {/* <div className="flex space-x-4"> */}
           {/* <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4"> */}
           <div className="flex flex-wrap space-x-4 w-full md:w-auto md:order-2">
-            <form className="relative w-full max-w-md">
+            <form
+              onSubmit={handleSubmit}
+              // className="relative flex flex-wrap gap-2"
+              className="relative w-full max-w-md"
+            >
+              {/* <input className="bg-gray-700 hover:bg-gray-900 text-white font-bold focus:outline-none focus:shadow-outline rounded-full py-1 px-3 w-full h-10"> */}
+              {/* <label className="whitespace-nowrap font-semibold">
+                Search Term:
+              </label> */}
               <input
                 type="text"
                 id="keyword"
                 placeholder="Keyword..."
+                // className="border rounded-lg p-3 w-full"
                 className="border hover:bg-gray-100 focus:outline-none focus:shadow-outline p-3 w-full"
+                value={sidebardata.keyword}
+                onChange={handleChange}
+                onKeyPress={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault(); // Prevent default "Enter" behavior
+                  }
+                }}
               />
-              <button type="submit">Find Jobs</button>
             </form>
+
             <div className="flex items-center gap-2">
               <select className="border rounded-lg p-3">
                 {/* <select className="border-gray-300 rounded-md"> */}
@@ -234,7 +373,12 @@ export default function Search() {
             </div>
 
             <div className="flex items-center gap-2">
-              <select className="border rounded-lg p-3">
+              <select
+                className="border rounded-lg p-3"
+                onChange={handleChange}
+                id="worksetup"
+                value={sidebardata.worksetup}
+              >
                 {/* <select className="border-gray-300 rounded-md"> */}
                 <option value="">Work Setup</option>
                 <option value="Onsite">Onsite</option>
@@ -246,7 +390,12 @@ export default function Search() {
               <option>Within 25 miles</option>
             </select> */}
             <div className="flex items-center gap-2">
-              <select className="border rounded-lg p-3">
+              <select
+                className="border rounded-lg p-3"
+                onChange={handleChange}
+                id="jobtype"
+                value={sidebardata.jobtype}
+              >
                 {/* <select className="border-gray-300 rounded-md"> */}
                 <option>Job type</option>
                 <option value="Full-time">Full-time</option>
@@ -255,7 +404,12 @@ export default function Search() {
               </select>
             </div>
             <div className="flex items-center gap-2">
-              <select className="border rounded-lg p-3">
+              <select
+                className="border rounded-lg p-3"
+                onChange={handleChange}
+                id="location"
+                defaultValue={"Manila"}
+              >
                 {/* <select className="border-gray-300 rounded-md"> */}
                 <option>Location</option>
                 <option value="Manila">Manila</option>
@@ -270,9 +424,14 @@ export default function Search() {
             </select> */}
             <div className="flex items-center gap-2">
               <label className="font-semibold">Sort:</label>
-              <select id="sort_order" className="border rounded-lg p-3">
-                <option>Latest post</option>
-                <option>Oldest post</option>
+              <select
+                id="sort_order"
+                className="border rounded-lg p-3"
+                onChange={handleChange}
+                defaultValue={"created_at_desc"}
+              >
+                <option value="latestPost">Latest post</option>
+                <option value="oldestPost">Oldest post</option>
               </select>
             </div>
             {/* <div className="bg-blue-800 flex justify-between items-center max-w-8xl mx-auto p-3 h-8"> */}
@@ -282,9 +441,15 @@ export default function Search() {
                 placeholder="Search..."
                 className="bg-white border-2 border-gray-300 focus:outline-none focus:border-blue-500 rounded-full py-1 px-3 w-full h-7"
               /> */}
-              <button className="bg-gray-700 hover:bg-gray-900 text-white font-bold focus:outline-none focus:shadow-outline rounded-full py-1 px-3 w-full h-10">
+
+              <button
+                type="submit"
+                className="bg-gray-700 hover:bg-gray-900 text-white font-bold focus:outline-none focus:shadow-outline rounded-full py-1 px-3 w-full h-10"
+              >
+                {/* <button className="bg-gray-700 hover:bg-gray-900 text-white font-bold focus:outline-none focus:shadow-outline rounded-full py-1 px-3 w-full h-10"> */}
                 Find Jobs
               </button>
+
               {/* <button
                 type="submit"
                 className="absolute right-0 top-0 mt-2 mr-3"
