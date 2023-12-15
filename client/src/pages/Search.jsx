@@ -152,51 +152,105 @@ export default function Search() {
 
   // Define a custom component for rendering the expanded view of a job
   const JobDetails = ({ job, onClose }) => (
-    // <div className="bg-white shadow-md rounded-md p-4">
-    <div className="bg-white shadow-md rounded-md p-4 max-h-[80vh] overflow-y-auto">
-      <div className="sticky top-0 bg-white shadow-md rounded-md p-4 mb-4">
-        <h3 className="text-lg font-bold">{job.pname}</h3>
-        <p className="text-gray-600">{job.cname}</p>
-        <p className="text-gray-600">{job.location}</p>
-        <p className="text-gray-600">{job.salary}</p>
-        <p className="text-gray-600">{job.committment}</p>
-        <button className="bg-blue-600 text-white px-4 py-2 rounded-md mt-4">
-          {/* Apply now */}
-          <Link to={`/viewjob/${job._id}`}>Apply Now</Link>
-        </button>
-      </div>
-      <div className="mt-4">
-        <h4 className="text-lg font-bold">Profile insights</h4>
-        <p className="text-gray-600">
-          Here's how this job's qualifications align with your profile:
-        </p>
-        <ul className="list-disc list-inside">
-          {job.skills &&
-            job.skills.map((skill, index) => (
-              <li key={index} className="text-gray-600">
-                {skill}
-              </li>
-            ))}
-        </ul>
-      </div>
-      <div className="mt-4">
-        <h4 className="text-lg font-bold">Job details</h4>
-        <p className="text-gray-600">
-          Here's how this job's details align with your preferences:
-        </p>
-        <ul className="list-disc list-inside">
-          <li className="text-gray-600">Pay: {job.salary}</li>
-          <li className="text-gray-600">Job type: {job.committment}</li>
-          {/* Add other details as needed */}
-        </ul>
-      </div>
-      {/* <button
-        onClick={onClose}
-        className="bg-red-600 text-white px-4 py-2 rounded-md mt-4"
-      >
-        Close
-      </button> */}
-    </div>
+    <>
+      {/* Modal for mobile devices */}
+      {selectedJob && isMobile && showModal && (
+        <div className="bg-white shadow-md rounded-md p-4 max-h-[80vh] overflow-y-auto">
+          <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">
+            <div className="bg-white shadow-md rounded-md p-4 w-full max-w-md relative">
+              {/* Job details content for modal */}
+              <div className="sticky top-0 bg-white shadow-md rounded-md p-4 mb-4">
+                <h3 className="text-lg font-bold">{job.pname}</h3>
+                <p className="text-gray-600">{job.cname}</p>
+                <p className="text-gray-600">{job.location}</p>
+                <p className="text-gray-600">{job.salary}</p>
+                <p className="text-gray-600">{job.committment}</p>
+                <button className="bg-blue-600 text-white px-4 py-2 rounded-md mt-4">
+                  {/* Apply now */}
+                  <Link to={`/viewjob/${job._id}`}>Apply Now</Link>
+                </button>
+              </div>
+              <div className="mt-4">
+                <h4 className="text-lg font-bold">Profile insights</h4>
+                <p className="text-gray-600">
+                  Here's how this job's qualifications align with your profile:
+                </p>
+                <ul className="list-disc list-inside">
+                  {job.skills &&
+                    job.skills.map((skill, index) => (
+                      <li key={index} className="text-gray-600">
+                        {skill}
+                      </li>
+                    ))}
+                </ul>
+              </div>
+              <div className="mt-4">
+                <h4 className="text-lg font-bold">Job details</h4>
+                <p className="text-gray-600">
+                  Here's how this job's details align with your preferences:
+                </p>
+                <ul className="list-disc list-inside">
+                  <li className="text-gray-600">Pay: {job.salary}</li>
+                  <li className="text-gray-600">Job type: {job.committment}</li>
+                  {/* Add other details as needed */}
+                </ul>
+              </div>
+              {/* Close button */}
+              {selectedJob && (
+                <button
+                  onClick={onClose}
+                  className="bg-red-600 text-white px-4 py-2 rounded-md mt-4"
+                >
+                  Close
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Job details for non-mobile devices */}
+      {!isMobile && selectedJob && (
+        <div className="bg-white shadow-md rounded-md p-4 max-h-[80vh] overflow-y-auto">
+          <div className="sticky top-0 bg-white shadow-md rounded-md p-4 mb-4">
+            <h3 className="text-lg font-bold">{job.pname}</h3>
+            <p className="text-gray-600">{job.cname}</p>
+            <p className="text-gray-600">{job.location}</p>
+            <p className="text-gray-600">{job.salary}</p>
+            <p className="text-gray-600">{job.committment}</p>
+            <button className="bg-blue-600 text-white px-4 py-2 rounded-md mt-4">
+              {/* Apply now */}
+              <Link to={`/viewjob/${job._id}`}>Apply Now</Link>
+            </button>
+          </div>
+          <div className="mt-4">
+            <h4 className="text-lg font-bold">Profile insights</h4>
+            <p className="text-gray-600">
+              Here's how this job's qualifications align with your profile:
+            </p>
+            <ul className="list-disc list-inside">
+              {job.skills &&
+                job.skills.map((skill, index) => (
+                  <li key={index} className="text-gray-600">
+                    {skill}
+                  </li>
+                ))}
+            </ul>
+          </div>
+          <div className="mt-4">
+            <h4 className="text-lg font-bold">Job details</h4>
+            <p className="text-gray-600">
+              Here's how this job's details align with your preferences:
+            </p>
+            <ul className="list-disc list-inside">
+              <li className="text-gray-600">Pay: {job.salary}</li>
+              <li className="text-gray-600">Job type: {job.committment}</li>
+              {/* Add other details as needed */}
+            </ul>
+          </div>
+        </div>
+      )}
+    </>
   );
 
   // Define a state for displaying job details
@@ -296,12 +350,12 @@ export default function Search() {
             <div className="bg-white shadow-md rounded-md p-4 w-full max-w-md relative">
               {/* Job details content for modal */}
               <JobDetails job={selectedJob} onClose={handleCloseModal} />
-              <button
+              {/* <button
                 onClick={handleCloseModal}
                 className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 focus:outline-none"
               >
                 Close
-              </button>
+              </button> */}
             </div>
           </div>
         )}
