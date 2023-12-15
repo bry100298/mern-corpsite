@@ -1,9 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const itemsPerPageOptions = [4, 8, 12];
 
 export default function Search() {
+  // For Search
+  const navigate = useNavigate();
+  const [sidebardata, setSidebardata] = useState({
+    searchTerm: "",
+    sort: "created_at",
+    order: "desc",
+  });
+
   //pagination
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(itemsPerPageOptions[0]);
@@ -29,10 +37,28 @@ export default function Search() {
   }, []);
 
   useEffect(() => {
+    const urlParams = new URLSearchParams(location.search);
+    const searchTermFromUrl = urlParams.get('keyword');
+    const sortFromUrl = urlParams.get('sort');
+    const orderFromUrl = urlParams.get('order');
+
+    if (
+      searchTermFromUrl ||
+      sortFromUrl ||
+      orderFromUrl
+    ) {
+      setSidebardata({
+        searchTerm: searchTermFromUrl || '',
+        sort: sortFromUrl || 'created_at',
+        order: orderFromUrl || 'desc',
+      });
+    }
+
     const fetchListings = async () => {
       try {
         setLoading(true);
-        const res = await fetch("/api/listing/get");
+        const searchQuery = urlParams.toString();
+        const res = await fetch(`/api/listing/get?${searchQuery}`);
         const data = await res.json();
         if (!res.ok) {
           setError(true);
@@ -48,7 +74,34 @@ export default function Search() {
       }
     };
     fetchListings();
-  }, []);
+  }, [location.search]);
+
+  // start search
+
+  const handleChange = (e) => {
+    if (e.target.id === "keyword") {
+      setSidebardata({ ...sidebardata, searchTerm: e.target.value });
+    }
+
+    if (e.target.id === "sort_order") {
+      const sort = e.target.value.split("_")[0] || "created_at";
+
+      const order = e.target.value.split("_")[1] || "desc";
+
+      setSidebardata({ ...sidebardata, sort, order });
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const urlParams = new URLSearchParams();
+    urlParams.set("keyword", sidebardata.searchTerm);
+    urlParams.set("sort", sidebardata.sort);
+    urlParams.set("order", sidebardata.order);
+    const searchQuery = urlParams.toString();
+    navigate(`/search?${searchQuery}`);
+  };
+  // end search
 
   const truncateDescription = (text, maxLength) => {
     if (text.length <= maxLength) return text;
