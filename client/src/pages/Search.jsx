@@ -38,19 +38,15 @@ export default function Search() {
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
-    const searchTermFromUrl = urlParams.get('keyword');
-    const sortFromUrl = urlParams.get('sort');
-    const orderFromUrl = urlParams.get('order');
+    const searchTermFromUrl = urlParams.get("keyword");
+    const sortFromUrl = urlParams.get("sort");
+    const orderFromUrl = urlParams.get("order");
 
-    if (
-      searchTermFromUrl ||
-      sortFromUrl ||
-      orderFromUrl
-    ) {
+    if (searchTermFromUrl || sortFromUrl || orderFromUrl) {
       setSidebardata({
-        searchTerm: searchTermFromUrl || '',
-        sort: sortFromUrl || 'created_at',
-        order: orderFromUrl || 'desc',
+        searchTerm: searchTermFromUrl || "",
+        sort: sortFromUrl || "created_at",
+        order: orderFromUrl || "desc",
       });
     }
 
@@ -266,14 +262,24 @@ export default function Search() {
         <div className="flex flex-col md:flex-row md:justify-between md:items-center space-y-4 md:space-y-0 md:space-x-4">
           {/* <h1 className="text-3xl font-bold md:order-1">developer</h1> */}
           <div className="flex flex-wrap space-x-4 w-full md:w-auto md:order-2">
-            <form className="relative w-full max-w-md">
+            {/* <form className="relative w-full max-w-md"> */}
+            {/* <form onSubmit={handleSubmit} className="w-full max-w-md"> */}
+            <form className="w-full max-w-md">
               <input
                 type="text"
                 id="keyword"
                 placeholder="Keyword..."
                 className="border hover:bg-gray-100 focus:outline-none focus:shadow-outline p-3 w-full"
+                value={sidebardata.searchTerm}
+                onChange={handleChange}
+                onKeyPress={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    handleSubmit(e); // Trigger search on Enter key press
+                  }
+                }}
               />
-              <button type="submit">Find Jobs</button>
+              {/* <button type="submit">Find Jobs</button> */}
             </form>
             <div className="flex items-center gap-2">
               <select className="border rounded-lg p-3">
@@ -312,7 +318,7 @@ export default function Search() {
                 <option>Oldest post</option>
               </select>
             </div>
-            <form className="relative w-full max-w-md">
+            <form onSubmit={handleSubmit} className="relative w-full max-w-md">
               <button className="relative bg-gray-700 hover:bg-gray-900 text-white font-bold focus:outline-none focus:shadow-outline rounded-full py-1 px-3 w-full h-10">
                 Find Jobs
               </button>
