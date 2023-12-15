@@ -8,6 +8,9 @@ export default function Search() {
   const navigate = useNavigate();
   const [sidebardata, setSidebardata] = useState({
     searchTerm: "",
+    workoptions: "",
+    committment: "",
+    location: "",
     sort: "created_at",
     order: "desc",
   });
@@ -39,12 +42,25 @@ export default function Search() {
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
     const searchTermFromUrl = urlParams.get("keyword");
+    const workoptionsFromUrl = urlParams.get("workoptions");
+    const committmentFromUrl = urlParams.get("committment");
+    const locationFromUrl = urlParams.get("location");
     const sortFromUrl = urlParams.get("sort");
     const orderFromUrl = urlParams.get("order");
 
-    if (searchTermFromUrl || sortFromUrl || orderFromUrl) {
+    if (
+      searchTermFromUrl ||
+      workoptionsFromUrl ||
+      committmentFromUrl ||
+      locationFromUrl ||
+      sortFromUrl ||
+      orderFromUrl
+    ) {
       setSidebardata({
         searchTerm: searchTermFromUrl || "",
+        workoptions: workoptionsFromUrl || "",
+        committment: committmentFromUrl || "",
+        location: locationFromUrl || "",
         sort: sortFromUrl || "created_at",
         order: orderFromUrl || "desc",
       });
@@ -75,8 +91,56 @@ export default function Search() {
   // start search
 
   const handleChange = (e) => {
+    const { id, value } = e.target;
+    setSidebardata((prevData) => ({
+      ...prevData,
+      [id]: value,
+    }));
+
     if (e.target.id === "keyword") {
       setSidebardata({ ...sidebardata, searchTerm: e.target.value });
+    }
+
+    // if (id === "workoptions") {
+    //   setSidebardata({ ...sidebardata, workoptions: value }); // Update workoptions state
+    // } else {
+    //   setSidebardata({ ...sidebardata, [id]: value }); // Update other inputs' states
+    // }
+
+    if (id === "workoptions") {
+      setSidebardata((prevData) => ({
+        ...prevData,
+        workoptions: value,
+      }));
+    } else {
+      setSidebardata((prevData) => ({
+        ...prevData,
+        [id]: value,
+      }));
+    }
+
+    if (id === "committment") {
+      setSidebardata((prevData) => ({
+        ...prevData,
+        committment: value,
+      }));
+    } else {
+      setSidebardata((prevData) => ({
+        ...prevData,
+        [id]: value,
+      }));
+    }
+
+    if (id === "location") {
+      setSidebardata((prevData) => ({
+        ...prevData,
+        location: value,
+      }));
+    } else {
+      setSidebardata((prevData) => ({
+        ...prevData,
+        [id]: value,
+      }));
     }
 
     if (e.target.id === "sort_order") {
@@ -92,10 +156,14 @@ export default function Search() {
     e.preventDefault();
     const urlParams = new URLSearchParams();
     urlParams.set("keyword", sidebardata.searchTerm);
+    urlParams.set("workoptions", sidebardata.workoptions);
+    urlParams.set("committment", sidebardata.committment);
+    urlParams.set("location", sidebardata.location);
     urlParams.set("sort", sidebardata.sort);
     urlParams.set("order", sidebardata.order);
     const searchQuery = urlParams.toString();
     navigate(`/search?${searchQuery}`);
+    console.log("Constructed Query:", searchQuery);
   };
   // end search
 
@@ -281,14 +349,20 @@ export default function Search() {
               />
               {/* <button type="submit">Find Jobs</button> */}
             </form>
-            <div className="flex items-center gap-2">
+            {/* <div className="flex items-center gap-2">
               <select className="border rounded-lg p-3">
                 <option>Date posted</option>
               </select>
-            </div>
+            </div> */}
 
             <div className="flex items-center gap-2">
-              <select className="border rounded-lg p-3">
+              <select
+                id="workoptions"
+                className="border rounded-lg p-3"
+                onChange={handleChange}
+                // defaultValue={"workoptions"}
+                defaultValue={sidebardata.workoptions}
+              >
                 <option value="">Work Setup</option>
                 <option value="Onsite">Onsite</option>
                 <option value="Hybrid">Hybrid</option>
@@ -296,7 +370,12 @@ export default function Search() {
               </select>
             </div>
             <div className="flex items-center gap-2">
-              <select className="border rounded-lg p-3">
+              <select
+                id="committment"
+                className="border rounded-lg p-3"
+                onChange={handleChange}
+                defaultValue={sidebardata.committment}
+              >
                 <option>Job type</option>
                 <option value="Full-time">Full-time</option>
                 <option value="Part-time">Part-time</option>
@@ -304,7 +383,12 @@ export default function Search() {
               </select>
             </div>
             <div className="flex items-center gap-2">
-              <select className="border rounded-lg p-3">
+              <select
+                className="border rounded-lg p-3"
+                onChange={handleChange}
+                defaultValue={sidebardata.location}
+                id="location"
+              >
                 <option>Location</option>
                 <option value="Manila">Manila</option>
                 <option value="Makati">Makati</option>
