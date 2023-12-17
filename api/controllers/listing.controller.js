@@ -98,7 +98,8 @@ export const getAllListings = async (req, res, next) => {
   try {
     const { keyword, location, sort, order, workoptions, committment } =
       req.query;
-    const limit = parseInt(req.query.limit) || 8;
+    // const limit = parseInt(req.query.limit) || 8;
+    const limit = parseInt(req.query.limit);
     const startIndex = parseInt(req.query.startIndex) || 0;
     let filter = {};
 

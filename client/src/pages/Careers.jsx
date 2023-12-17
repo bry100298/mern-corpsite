@@ -23,6 +23,7 @@ export default function Careers() {
           setLoading(false);
           return;
         }
+        console.log("Fetched data:", data); // Add this line for debugging
         setListings(data);
         setLoading(false);
         setError(false);
